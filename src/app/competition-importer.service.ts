@@ -9,7 +9,7 @@ export class CompetitionImporterService {
   _trackChange = new BehaviorSubject(false);
 
   constructor(private http: HttpClient) { }
-  base_url = 'http://localhost:5000';
+  base_url = 'http://schedulerapi.eu-central-1.elasticbeanstalk.com';
   trackChange = this._trackChange.asObservable();
 
   changeActiveTrack(track: string): void {

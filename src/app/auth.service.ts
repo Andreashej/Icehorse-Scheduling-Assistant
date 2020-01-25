@@ -13,7 +13,7 @@ import { routerNgProbeToken } from '@angular/router/src/router_module';
 
 export class AuthService {
 
-  serverUrl = 'http://localhost:5000';
+  serverUrl = 'http://schedulerapi.eu-central-1.elasticbeanstalk.com';
 
   constructor(private http: HttpClient,
               private router: Router) { }

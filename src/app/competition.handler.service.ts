@@ -13,7 +13,7 @@ import { Venue } from './models/venue.model';
 export class CompetitionHandlerService {
 
   constructor(private http: HttpClient) { }
-  serverUrl = 'http://localhost:5000';
+  serverUrl = 'http://schedulerapi.eu-central-1.elasticbeanstalk.com';
 
   changeCompetition: BehaviorSubject<Competition> = null;
 
