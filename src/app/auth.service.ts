@@ -5,7 +5,6 @@ import * as jwt_decode from 'jwt-decode';
 import * as moment from "moment";
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
-import { routerNgProbeToken } from '@angular/router/src/router_module';
 
 @Injectable({
   providedIn: 'root'
