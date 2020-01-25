@@ -18,7 +18,7 @@ export class ScheduleContainerComponent implements OnInit, OnChanges {
   scheduledTests: Test[] = [];
   unscheduledTests: Test[] = [];
 
-  @ViewChild('scheduleObj') public scheduleObj: ScheduleComponent;
+  @ViewChild('scheduleObj', { static: false }) public scheduleObj: ScheduleComponent;
 
   eventSettings: EventSettingsModel = {
     dataSource: this.scheduledTests,

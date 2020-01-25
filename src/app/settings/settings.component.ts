@@ -26,7 +26,7 @@ export class SettingsComponent implements OnInit {
   allVenues: Venue[] = [];
 
   
-  @ViewChild('venues') instance: NgbTypeahead;
+  @ViewChild('venues', { static: false }) instance: NgbTypeahead;
   focus$ = new Subject<string>();
   click$ = new Subject<string>();
   
