@@ -1,18 +1,6 @@
 <div class="container-fluid">
   <div class="row h-100">
-    <app-unassigned-tests class="col-3 h-100" [class.all-assigned]="" (testDropped)="dragEnd($event)" (testDragStart)="onDrag($event)" [tests]="unscheduledTests"></app-unassigned-tests>
-    <!-- <div class="treeview-container">
-      <div class="title-container">
-        <h2>Unassigned tests</h2>
-      </div>
-      <ejs-treeview [fields]="field" [allowDragAndDrop]="true">
-        <ng-template #nodeTemplate let-data="">
-          <div>
-            {{ data.test.testcode }}
-          </div>
-        </ng-template>
-      </ejs-treeview>
-    </div> -->
+    <app-unassigned-tests *ngIf="unscheduledTests.length > 0" class="col-3 h-100" [class.all-assigned]="" (testDropped)="dragEnd($event)" (testDragStart)="onDrag($event)" [tests]="unscheduledTests"></app-unassigned-tests>
     <ejs-schedule *ngIf="currentCompetition" #scheduleObj class="col h-100" cssClass="schedule-cell-dimension"
     [selectedDate]="currentCompetition.startdate" [eventDragArea]="droppable-area" [timeScale]="timeScale" [eventSettings]="eventSettings" [group]="group"
     (dragStop)="dragEnd($event)" (popupOpen)="onPopupOpen($event)">
