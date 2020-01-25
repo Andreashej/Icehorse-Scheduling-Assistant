@@ -21,9 +21,9 @@ export class HeaderComponent implements OnInit {
   currentCompetition: Competition = null;
   currentCompetitionUri: string = localStorage.getItem("currentCompetition");
 
-  constructor(private app: AppComponent,
+  constructor(public app: AppComponent,
     private competitionHandler: CompetitionHandlerService,
-    private authService: AuthService,
+    public authService: AuthService,
     private modalService: NgbModal) { }
 
   ngOnInit() {

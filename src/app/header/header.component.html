@@ -1,5 +1,5 @@
 <div class="header no-print">
-  <nav *ngIf="authService.isLoggedIn()" class="nav nav-justified no-print">
+  <nav *ngIf="authService.isLoggedIn() && currentUser" class="nav nav-justified no-print">
     <a class="nav-link" routerLink="/">
       <i class="fa fa-calendar"></i>
       <span>Schedule</span>
@@ -33,7 +33,7 @@
     </select>
   </div>
 
-  <h1 class="competition-name" *ngIf="currentCompetition">{{ app.title }}</h1>
+  <h1 class="competition-name">{{ app.title }}</h1>
 </div>
 
 <ng-template #modal let-modalClose="close" let-modalDismiss="dismiss">
