@@ -51,7 +51,7 @@ import { PrintContainerComponent } from './print-container/print-container.compo
     NgDragDropModule.forRoot(),
     BrowserModule,
     FormsModule,
-    NgbModule.forRoot(),
+    NgbModule,
     AppRoutingModule,
     ScheduleModule,
     TreeViewModule
