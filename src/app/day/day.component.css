@@ -1,0 +1,66 @@
+.hour-divider {
+    border-top: thin solid lightgray;
+    vertical-align: top;
+    color: gray;
+    font-size: 12px;
+}
+
+.time {
+    width: 4%;
+    /* padding-left: 5px; */
+}
+
+.grid {
+    width: 100%;
+}
+
+.grid tr {
+    height: 1rem;
+}
+
+td {
+    height: inherit;
+    border-left: thin solid lightgray;
+}
+
+td:first-of-type {
+    border-left: none;
+}
+
+h2 {
+    padding: 10px 20px;
+    text-align: center;
+}
+
+.scheduled {
+    /* width: 100%; */
+    padding: 0 5px;
+}
+
+.drag-over-border {
+    background-color: #312783;
+}
+
+.venueName {
+    text-align: center;
+}
+
+.block {
+    overflow: hidden;
+    width: 32%;
+}
+
+app-test-card-schedule {
+    height: 100%;
+    display: flex;
+}
+
+@media print {
+    .grid {
+        page-break-after: always;
+    }
+
+    .grid tr {
+        height: 6.45px;
+    }
+}

@@ -1,0 +1,14 @@
+.day {
+    border-right: #312783 thin solid;
+    padding: 10px 0;
+    height: fit-content;
+}
+
+.day:last-of-type {
+    border: none;
+}
+
+.schedule {
+    overflow-y: scroll;
+    overflow-x: scroll;
+}

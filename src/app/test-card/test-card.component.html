@@ -1,0 +1,26 @@
+<!-- <div class="test-card alert alert-dark row" #test [dragData]="test" (onDragEnd)="testGrabbed($event)"> -->
+<div class="test-card alert alert-dark row" #testElt (onDragEnd)="testGrabbed($event)">
+  <div class="test-content col">
+    <h5 [class.capitalize]="test.phase !== 'custom'">{{ test.testcode }}<span *ngIf="test.phase !== 'custom'"> {{ test.phase }}</span></h5>
+    <div *ngIf="test.phase === 'prel'">
+      <div *ngIf="test.groupsize === 1; else heats" class="groupsize-1 heats">Number of riders: {{ test.getLeftReinHeats() }} </div>
+      <ng-template #heats>
+        <span class="heats lr">Left Rein: {{ test.getLeftReinHeats() }} ({{ test.left_rein_participants }})
+          <span class="bagde" [class.badge-danger]="test.getFreePlacesLeft() === 0" [class.badge-success]="test.getFreePlacesLeft() > 0">+{{ test.getFreePlacesLeft() }}</span>
+        </span>
+        <span class="heats rr">Right Rein: {{ test.getRightReinHeats() }} ({{ test.right_rein_participants }})
+          <span class="bagde" [class.badge-danger]="test.getFreePlacesRight() === 0" [class.badge-success]="test.getFreePlacesRight() > 0">+{{ test.getFreePlacesRight() }}</span>
+        </span>
+      </ng-template>
+    </div>
+  </div>
+  <div class="time col-4">
+    <span class="hours" *ngIf="test.getHours() > 0">{{ test.getHours() }}h</span>
+    <span class="minutes" *ngIf="test.getMinutes() > 0">{{ test.getMinutes() }}m</span>
+    <div class="btn-group" *ngIf="test.phase === 'prel' && test.section == 0 && !test.origcode.includes('P')">
+      <button class="btn btn-sm" [class.btn-danger]="!test.hasAfinal" [class.btn-success]="test.hasAfinal" type="button" (click)="toggleFinal('a')">AFIN</button>
+      <button class="btn btn-sm" [class.btn-danger]="!test.hasBfinal" [class.btn-success]="test.hasBfinal" type="button" (click)="toggleFinal('b')">BFIN</button>
+    </div>
+  </div>
+
+</div>

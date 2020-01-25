@@ -1,0 +1,178 @@
+.test-card {
+    height: 100%;
+    width: 100%;
+    border-radius: 0;
+    border: none;
+}
+
+.judges span {
+    font-size: 18px;
+    float: left;
+}
+
+.small-judge span {
+    font-size: large !important;
+}
+
+.smaller-judge span {
+    font-size: .8rem !important;
+}
+
+.small h5 {
+    font-size: large !important;
+}
+
+.smaller h5 {
+    font-size: .8rem !important;
+}
+
+.draghandle {
+    cursor: move;
+}
+
+.card-body {
+    padding: .5em 1em;
+    overflow: hidden;
+}
+
+.card-body h5 {
+    margin-bottom: .2em;
+}
+
+.drag-border {
+    display: none;
+}
+
+.alert {
+    padding: .1em .5em;
+    margin-bottom: .3em;
+}
+
+.capitalize {
+    text-transform: uppercase;
+}
+
+.timespan {
+    font-size: .8rem;
+}
+
+.remove {
+    color: red;
+    position: absolute;
+    top: 5px;
+    right: 5px;
+}
+
+.critical {
+    color: red;
+}
+
+.warning {
+    color: orange;
+}
+
+.noclick {
+    cursor: default !important;
+}
+
+.nopoint {
+    cursor: default !important;
+    pointer-events: none;
+}
+
+.col:last-child {
+    text-align: right;
+}
+
+.fa {
+    min-width: 5px;
+    min-height: 5px;
+}
+
+.time {
+    text-align: right;
+}
+
+.remove, .add, .warning, .check, .edit {
+    cursor: pointer;
+}
+
+[class*="T1"] {
+    background-color: #A9D978;
+    color: black;
+}
+
+[class*="T2"] {
+    background-color: #B4FFB3;
+    color: black;
+}
+
+[class*="T3"] {
+    background-color: #67A266;
+    color: black;
+}
+
+[class*="T4"] {
+    background-color: #44985D;
+    color: white;
+}
+
+[class*="T5"] {
+    background-color: #9DB688;
+    color: black;
+}
+
+[class*="T8"] {
+    background-color: #AABCA6;
+    color: black;
+}
+
+[class*="V1"], [class*="GDB"] {
+    background-color: #7194C0;
+    color: black;
+}
+
+[class*="V2"], [class*="GDT"] {
+    background-color: #4B627F;
+    color: white;
+}
+
+[class*="V3"], [class*="GDC"] {
+    background-color: #96C4FF;
+    color: black;
+}
+
+[class*="V5"], [class*="GDY"] {
+    background-color: #263140;
+    color: white;
+}
+
+[class*="F1"], [class*="GDA"] {
+    background-color: #34495e;
+    color: white;
+}
+
+[class*="F2"] {
+    background-color: #87B0E5;
+    color: black;
+}
+
+[class*="PP1"] {
+    background-color: #E74C3C;
+    color: white;
+}
+
+[class*="P2"] {
+    background-color: #C0392B;
+    color: white;
+}
+
+[class*="P1"], [class*="P3"] {
+    background-color: #A4392C;
+    color: white;
+}
+
+.custom {
+    background-color: #d6d8d9;
+    color: black;
+}

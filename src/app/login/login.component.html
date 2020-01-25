@@ -1,0 +1,17 @@
+<div class="container h-100">
+  <div class="row h-100 align-items-center">
+    <div class="col-6 mx-auto align-self-center">
+      <form class="card h-100 border-primary justify-content-center">
+        <div class="card-body">
+          <div class="card-title">
+            <h4>Please login</h4>
+          </div>
+          <input type="text" #username name="username" class="form-control mb-1" placeholder="Username">
+          <input type="password" #password name="password" class="form-control mb-1" placeholder="Password">
+          <button type="submit" class="btn btn-primary" (click)="login(username.value, password.value)">Login</button>
+          <ngb-alert *ngIf="alert.message !== ''" [dismissible]="false" [type]="alert.type">{{alert.message}}</ngb-alert>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

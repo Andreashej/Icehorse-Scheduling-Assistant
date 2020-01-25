@@ -1,0 +1,25 @@
+<h2>{{ date | date:'EEEE MMM d'}}</h2>
+<div class="h-100">
+  <div class="h-100">
+    <table class="grid">
+      <thead>
+        <tr>
+          <th></th>
+          <th class="venueName" *ngFor="let venue of competition.venues">{{ venue.name }}</th>
+        </tr>
+      </thead>
+      <tr *ngFor="let block of allBlocks">
+        <td *ngIf="block.blocktime && block.blocktime.getMinutes() == 0" class="hour-divider time" rowspan="12">{{ block.blocktime | date:'HH:mm'}}</td>
+        <ng-container *ngFor="let venue of competition.venues;">
+          <td *ngIf="findTestByBlockId(block.blockId, venue.uri); else noTest; let test;" [class.hour-divider]="block.blocktime.getMinutes() == 0" [attr.rowspan]="test.getBlockSpan()" class="block">
+              <app-test-card-schedule [test]="test"
+                [printTemplate]="printTemplate"></app-test-card-schedule>
+          </td>
+          <ng-template #noTest>
+            <td *ngIf="findBlockById(block.blockId, venue.uri).busyUntil < block.blockId" [class.hour-divider]="block.blocktime.getMinutes() == 0" class="block"></td>
+          </ng-template>
+        </ng-container>
+      </tr>
+    </table>
+  </div>
+</div>

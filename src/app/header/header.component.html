@@ -1,0 +1,78 @@
+<div class="header no-print">
+  <nav *ngIf="authService.isLoggedIn()" class="nav nav-justified no-print">
+    <a class="nav-link" routerLink="/">
+      <i class="fa fa-calendar"></i>
+      <span>Schedule</span>
+    </a>
+    <a class="nav-link" routerLink="/judges">
+      <i class="fa fa-users"></i>
+      <span>Judges</span>
+    </a>
+    <a class="nav-link" routerLink="/print">
+      <i class="fa fa-print"></i>
+      <span>Print</span>
+    </a>
+    <a class="nav-link" routerLink="/settings">
+      <i class="fa fa-cog"></i>
+      <span>Settings</span>
+    </a>
+  </nav>
+
+  <div ngbDropdown placement="bottom-right" *ngIf="authService.isLoggedIn() && currentUser" class="right-align">
+    <button class="btn btn-outline-light" id="dropdownBasic1" ngbDropdownToggle>{{ currentUser.username }}</button>
+    <div ngbDropdownMenu>
+      <button class="dropdown-item" (click)="openVerticallyCentered(modal)">Create new competition</button>
+      <button class="dropdown-item" (click)="authService.logout()">Log out</button>
+    </div>
+  </div>
+  
+  <div *ngIf="authService.isLoggedIn() && currentUser" class="right-align">
+    <select #competitionDropdown [(ngModel)]="currentCompetitionUri" class="btn btn-light" (change)="handleCompetitionChange()">
+      <option *ngIf="!currentCompetition" disabled selected>Select a competition...</option>
+      <option *ngFor="let competition of currentUser.competitions" [value]="competition.uri">{{ competition.name }}</option>
+    </select>
+  </div>
+
+  <h1 class="competition-name" *ngIf="currentCompetition">{{ app.title }}</h1>
+</div>
+
+<ng-template #modal let-modalClose="close" let-modalDismiss="dismiss">
+  <div class="modal-header">
+    <h4 class="modal-title">Create new competition</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modalDismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+      <form>
+          <div class="form-group">
+              <label for="name">Name</label>
+              <div class="input-group">
+                <input #competitionName id="name" class="form-control" placeholder="Name" name="name">
+              </div>
+            </div>
+          <div class="form-group">
+            <label for="startDate">Start Date</label>
+            <div class="input-group">
+              <input #startDate id="startDate" class="form-control" placeholder="yyyy-mm-dd" name="dp" ngbDatepicker #dpStart="ngbDatepicker">
+              <div class="input-group-append">
+                <button class="btn btn-outline-secondary fa fa-calendar" (click)="dpStart.toggle()" type="button"></button>
+              </div>
+            </div>
+          </div>
+          <div class="form-group">
+              <label for="endDate">End Date</label>
+              <div class="input-group">
+                <input #endDate id="endDate" class="form-control" placeholder="yyyy-mm-dd" name="dp" ngbDatepicker #dpEnd="ngbDatepicker">
+                <div class="input-group-append">
+                  <button class="btn btn-outline-secondary fa fa-calendar" (click)="dpEnd.toggle()" type="button"></button>
+                </div>
+              </div>
+            </div>
+        </form>
+        <ngb-alert *ngIf="alert.message !== ''" [dismissible]="false" [type]="alert.type">{{alert.message}}</ngb-alert>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-primary" (click)="createCompetition(competitionName.value, startDate.value, endDate.value);modalClose()">Create</button>
+  </div>
+</ng-template>

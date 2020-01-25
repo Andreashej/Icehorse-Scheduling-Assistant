@@ -1,0 +1,37 @@
+app-unassigned-tests {
+    padding-right: 0;
+}
+
+.container-fluid {
+    height: calc(100% - 3.5em);
+}
+
+.drag-over-border {
+    border: thick solid red;
+}
+
+.col {
+    padding: 0;
+}
+
+.critical {
+    color: red;
+}
+
+.warning {
+    color: orange;
+}
+
+.noclick {
+    cursor: default !important;
+}
+
+.nopoint {
+    cursor: default !important;
+    pointer-events: none;
+}
+
+.btn {
+    font-size: 0.7rem;
+    padding: 0.15rem 0.35rem;
+}

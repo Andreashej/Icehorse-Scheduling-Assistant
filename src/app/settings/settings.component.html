@@ -1,0 +1,116 @@
+<h1>Settings</h1>
+<div class="container">
+  <ngb-tabset>
+    <ngb-tab title="Competition settings">
+      <ng-template *ngIf="currentCompetition" ngbTabContent>
+        <div class="row mt-2">
+          <div class="col input-group">
+            <div class="input-group-prepend">
+              <label for="competitionName" class="input-group-text">Competition name</label>
+            </div>
+            <input id="competitionName" #competitionName type="text" class="form-control" [(ngModel)]="currentCompetition.name">
+          </div>
+        </div>
+        <div class="row mt-2">
+          <div class="col input-group">
+            <div class="input-group-prepend">
+              <label class="input-group-text" for="startDate">Start Date</label>
+            </div>
+            <input #startDate id="startDate" class="form-control" placeholder="yyyy-mm-dd" name="dp" value="{{ currentCompetition.getStartDate() }}" ngbDatepicker #dpStart="ngbDatepicker">
+            <div class="input-group-append">
+              <button class="btn btn-outline-secondary fa fa-calendar" (click)="dpStart.toggle()" type="button"></button>
+            </div>
+          </div>
+
+          <div class="col input-group">
+            <div class="input-group-prepend">
+              <label class="input-group-text" for="endDate">End Date</label>
+            </div>
+            <input #endDate id="endDate" class="form-control" placeholder="yyyy-mm-dd" name="dp" value="{{ currentCompetition.getEndDate() }}" ngbDatepicker #dpEnd="ngbDatepicker">
+            <div class="input-group-append">
+              <button class="btn btn-outline-secondary fa fa-calendar" (click)="dpEnd.toggle()" type="button"></button>
+            </div>
+          </div>
+        </div>
+        <div class="row mt-2">
+          <div class="col input-group">
+            <div class="input-group-prepend">
+              <label for="" class="input-group-text">Tracks / Venues</label>
+            </div>
+            <input id="venues" type="text" class="form-control" [(ngModel)]="addVenue" [ngbTypeahead]="venueSearch" (selectItem)="venueChange($event)" (focus)="focus$.next($event.target.value)" (click)="click$.next($event.target.value)" #venues="ngbTypeahead" [resultTemplate]="searchTemplate" [inputFormatter]="formatter">
+            <ng-template #searchTemplate let-v="result" let-t="term">
+              <ngb-highlight [result]="v.name" [term]="t"></ngb-highlight>
+            </ng-template>
+          </div>
+        </div>
+        <div class="row mt-2">
+            <div class="competitionVenues col">
+              <span class="venue badge badge-info mr-1" *ngFor="let venue of currentCompetition.venues">{{ venue.name }} <a class="fa fa-trash" (click)="removeVenue(venue)"></a></span>
+            </div>
+        </div>
+        <div class="row mt-2">
+          <div class="col">
+            <button class="btn btn-success" (click)="saveCompetition(startDate.value, endDate.value);">Save</button>
+            <button class="btn btn-danger ml-1" (click)="deleteCompetition();">Delete competition</button>
+          </div>
+        </div>
+    </ng-template>
+  </ngb-tab>
+  <ngb-tab title="Tests">
+      <ng-template ngbTabContent>
+        <table class="list-group">
+          <tr class="list-group-item row">
+            <th class="col-2">Testcode</th>
+            <th class="col-2">Base Test</th>
+            <th class="col-4" colspan="2">Number of riders</th>
+            <th class="col-1">Time</th>
+            <th class="col-3">Grouptime</th>
+          </tr>
+          <tr class="list-group-item row">
+              <td class="col-2">
+                <input class="form-control" #tc type="text" placeholder="Testcode">
+              </td>
+              <td class="col-2">
+                  <input class="form-control" #base type="text" placeholder="Base Test">
+              </td>
+              <td class="col-2">
+                <input class="form-control" #lr type="number" placeholder="Left Rein">
+              </td>
+              <td class="col-2">
+                <input class="form-control" #rr type="number" placeholder="Right Rein">
+              </td>
+              <td class="col-1">
+                  
+              </td>
+              <td class="col-3">
+                <button class="btn btn-success" type="submit" (click)="createTest(tc.value, lr.value, rr.value, base.value); tc.value = ''; lr.value=''; rr.value=''; base.value=''">Create</button>
+              </td>
+          </tr>
+          <tr *ngFor="let test of tests" class="list-group-item row">
+            <td class="col-2">
+              <input class="form-control" #tc [(ngModel)]="test.testcode" (change)="updateTest(test)">
+            </td>
+            <td class="col-2">
+                {{ test.origcode }}
+              </td>
+            <td class="col-2">
+              <input class="form-control" type="number" #lr [(ngModel)]="test.left_rein_participants" (change)="updateTest(test)">
+            </td>
+            <td class="col-2">
+              <input class="form-control" type="number" #rr [(ngModel)]="test.right_rein_participants" (change)="updateTest(test)">
+            </td>
+            <td class="col-1">
+              {{ test.getDuration() }}
+            </td>
+            <td class="col-2">
+                <input class="form-control" type="number" #grouptime [(ngModel)]="test.grouptime" (change)="updateTest(test)">
+            </td>
+            <td class="col-1">
+                <button (click)="deleteTest(test)" class="btn btn-danger"><i class="fa fa-trash"></i></button>
+            </td>
+          </tr>
+        </table>
+      </ng-template>
+    </ngb-tab>
+  </ngb-tabset>
+</div>

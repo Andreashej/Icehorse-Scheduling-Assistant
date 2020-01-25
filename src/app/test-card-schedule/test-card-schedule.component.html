@@ -1,0 +1,86 @@
+<div class="card test-card {{ test.testcode }} {{ test.phase }} mr-2">
+  <div class="card-body">
+      <h5 class="card-title">
+        <span>
+          {{ test.testcode }} <span class="capitalize" *ngIf="test.phase !== 'custom'"> {{ test.phase }}</span>
+          <span *ngIf="print && test.phase == 'prel'"> Section {{ test.section + 1 }}</span>
+          <span *ngIf="test.phase == 'Preliminary' && !print">({{ test.getLeftReinHeats() + test.getRightReinHeats() }})</span>
+        </span> 
+        <span *ngIf="test.getDuration() < 30" style="float: right">{{ test.starttime | date:'HH:mm'}}</span>
+      </h5>
+    
+        <p *ngIf="test.getDuration() >= 30">{{ test.starttime | date:'HH:mm'}} - {{ test.endtime | date:'HH:mm' }}</p>
+  </div>
+</div>
+<!-- 
+<ng-template #testDetails>
+  <div class="timespan">
+    {{ starttime | date:'HH:mm'}} - {{ endtime | date:'HH:mm' }}
+  </div>
+  <div class="btn-group btn-group-sm" *ngIf="data.phase !== 'custom'"> -->
+    <!-- <button class="btn btn-sm btn-dark" [ngbPopover]="judges" container="body" popoverTitle="Judges for {{ test.testcode }} {{ test.phase}}" placement="bottom">
+      <span class="col">Judges ({{ judgeList.length }})
+        <i *ngIf="judgeList.length < test.expected_judges" class="fa fa-exclamation-triangle warning" ngbTooltip="There should be 5 judges in this test"
+          container="body"></i>
+        <i *ngIf="judgeList.length === test.expected_judges" class="fa fa-check check" ngbTooltip="Good job! Nothing to worry about here."
+          container="body"></i>
+      </span>
+    </button> -->
+    <!-- <button class="btn btn-sm btn-dark" [ngbPopover]="split" container="body" placement="bottom" popoverTitle="Split test after x riders">
+      <i class="fa fa-clone check" ngbTooltip="Split test" container="body" placement="bottom"></i>
+    </button>
+    <button *ngIf="data.section > 0" class="btn btn-sm btn-dark" [ngbPopover]="join" container="body" popoverTitle="Merge with section x">
+      <i class="fa fa-link check" ngbTooltip="Merge test sections" container="body"></i>
+    </button>
+  </div>
+  <div class="btn-group" *ngIf="data.phase === 'Preliminary' && data.section == 0"> -->
+    <!-- <button class="btn btn-sm" [class.btn-danger]="!test.hasAfinal" [class.btn-success]="test.hasAfinal" type="button" (click)="toggleFinal('a')">AFIN</button> -->
+    <!-- <button class="btn btn-sm" [class.btn-danger]="!test.hasBfinal" [class.btn-success]="test.hasBfinal" type="button" (click)="toggleFinal('b')">BFIN</button> -->
+  <!-- </div>
+  <div class="btn-group btn-group-small" *ngIf="test.phase !== 'custom'">
+    <span class="btn btn-sm btn-dark nopoint">
+      Section: {{ data.section + 1 }}
+    </span>
+  </div>
+</ng-template>
+
+<ng-template #split>
+  <div class="input-group input-group-sm mb-3">
+    <div class="input-group-prepend">
+      <span class="input-group-text">LR</span>
+    </div>
+    <input class="form-control" type="number" name="lr" [(ngModel)]="split_lr" placeholder="Left Rein">
+    <div class="input-group-prepend" *ngIf="test.right_heats > 0">
+      <span class="input-group-text">RR</span>
+    </div>
+    <input *ngIf="test.right_heats > 0" class="form-control" type="number" name="rr" [(ngModel)]="split_rr" placeholder="Right Rein">
+    <div class="input-group-append">
+      <button type="button" class="btn btn-outline-primary" (click)="splitTest()">Split</button>
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #join>
+  <div class="input-group input-group-sm mb-3">
+    <input class="form-control" type="number" name="join" [(ngModel)]="join_section" placeholder="Join">
+    <div class="input-group-append">
+      <button type="button" class="btn btn-outline-primary" (click)="joinTest()">Merge</button>
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #judges>
+  <div *ngFor="let judge of judgeList" class="alert alert-primary">
+    {{ judge.fname }} {{ judge.lname }} ({{judge.status}})
+    <i *ngIf="judge.times[0].time > 480" ngbTooltip="This judge has more than 8 hours of judging today..." class="fa fa-exclamation-triangle warning noclick" container="body"></i>
+    <i *ngIf="judge.times[0].end.getTime() - judge.times[0].start.getTime() > 600 * 60000" ngbTooltip="This judge has a longer day than 10 hours today..."
+      class="fa fa-exclamation-triangle warning noclick" container="body"></i>
+    <i class="fa fa-times remove" (click)="removeJudge(judge.fname, judge.lname)"></i>
+  </div>
+  <div class="input-group input-group-sm mb-3" *ngIf="judgeList.length < test.expected_judges">
+    <select class="form-control form-control-sm" name="new-judge" #newjudge (change)="addJudge(judgesNotInTest[newjudge.value].fname, judgesNotInTest[newjudge.value].lname); newjudge.value = -1;">
+      <option [value]="-1" disabled selected>Select judge</option>
+      <option *ngFor="let j of judgesNotInTest; index as i" [value]="i">{{j.fname}} {{j.lname}} ({{j.status}})</option>
+    </select>
+  </div>
+</ng-template> -->

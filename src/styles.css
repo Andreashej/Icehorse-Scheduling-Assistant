@@ -1,0 +1,59 @@
+/* You can add global styles to this file, and also import other style files */
+@import url('https://fonts.googleapis.com/css?family=Open+Sans');
+
+@import '../node_modules/@syncfusion/ej2-base/styles/material.css';
+@import '../node_modules/@syncfusion/ej2-buttons/styles/material.css';
+@import '../node_modules/@syncfusion/ej2-calendars/styles/material.css';
+@import '../node_modules/@syncfusion/ej2-dropdowns/styles/material.css';
+@import '../node_modules/@syncfusion/ej2-inputs/styles/material.css';
+@import '../node_modules/@syncfusion/ej2-lists/styles/material.css';
+@import '../node_modules/@syncfusion/ej2-popups/styles/material.css';
+@import '../node_modules/@syncfusion/ej2-navigations/styles/material.css';
+@import '../node_modules/@syncfusion/ej2-angular-schedule/styles/material.css';
+
+@import "../node_modules/@syncfusion/ej2-base/styles/material.css";
+@import "../node_modules/@syncfusion/ej2-angular-navigations/styles/material.css";
+@import "../node_modules/@syncfusion/ej2-inputs/styles/material.css";
+@import "../node_modules/@syncfusion/ej2-buttons/styles/material.css";
+
+
+* {
+    font-family: 'Open Sans', sans-serif;
+}
+
+body {
+    margin: 0;
+}
+
+html,body {
+    height: 100%;
+}
+
+ngb-popover-window {
+    width: 274px;
+}
+
+/* .schedule-cell-dimension.e-schedule .e-vertical-view .e-date-header-wrap table col,
+.schedule-cell-dimension.e-schedule .e-vertical-view .e-content-wrap table col {
+    width: 200px;
+} */
+
+.schedule-cell-dimension.e-schedule .e-vertical-view .e-time-cells-wrap table td,
+.schedule-cell-dimension.e-schedule .e-vertical-view .e-work-cells,
+.schedule-cell-dimension.e-schedule .e-month-view .e-work-cells
+ {
+    height: 10px;
+}
+
+/* .schedule-cell-dimension.e-schedule .e-month-view .e-work-cells,
+.schedule-cell-dimension.e-schedule .e-month-view .e-date-header-wrap table col {
+    width: 200px;
+} */
+
+.schedule-cell-dimension.e-schedule .e-vertical-view .e-time-cells-wrap table td {
+    overflow: visible;
+}
+
+.e-schedule .e-vertical-view .e-alternate-cells {
+    border-bottom: none;
+}
