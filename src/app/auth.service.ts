@@ -12,7 +12,7 @@ import { Observable } from 'rxjs';
 
 export class AuthService {
 
-  serverUrl = 'http://schedulerapi.eu-central-1.elasticbeanstalk.com';
+  serverUrl = 'https://api.andreashej.com';
 
   constructor(private http: HttpClient,
               private router: Router) { }
