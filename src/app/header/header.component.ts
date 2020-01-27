@@ -6,6 +6,7 @@ import { User } from '../models/user.model';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Alert } from '../models/alert.model';
 import { Competition } from '../models/competition.model';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-header',
@@ -24,12 +25,16 @@ export class HeaderComponent implements OnInit {
   constructor(public app: AppComponent,
     private competitionHandler: CompetitionHandlerService,
     public authService: AuthService,
-    private modalService: NgbModal) { }
+    private modalService: NgbModal,
+    private router: Router) { }
 
   ngOnInit() {
     this.competitionHandler.getCurrentUser().subscribe(
       user => {
         this.currentUser = user
+      },
+      err => {
+        this.router.navigateByUrl('/login');
       }
     );
     this.setCurrentCompetition();
