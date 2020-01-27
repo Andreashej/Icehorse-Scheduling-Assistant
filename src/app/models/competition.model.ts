@@ -10,6 +10,7 @@ export class Competition implements Deserializeable {
     venues: Venue[];
     uri: string;
     venue: string; // Temp var used to build the query for adding a track to the competition
+    user: Number; // As above
 
     constructor(name?: string, startdate?: Date, enddate?: Date) {
         this.name = name;

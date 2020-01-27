@@ -45,7 +45,6 @@ export class HeaderComponent implements OnInit {
   openVerticallyCentered(content) {
     this.modalService.open(content, { centered: true }).result.then(
       (result) => {
-        console.log(result);
       }
     );
   }
@@ -55,10 +54,8 @@ export class HeaderComponent implements OnInit {
     const newEnd = new Date(endDate);
 
     const competition = new Competition(name, newStart, newEnd);
-    console.log(competition);
     this.competitionHandler.createCompetition(competition).subscribe(
       response => {
-        console.log(response);
         this.currentUser.competitions.push(response);
         this.modal.close();
       },

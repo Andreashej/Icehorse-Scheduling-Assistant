@@ -35,3 +35,7 @@ app-unassigned-tests {
     font-size: 0.7rem;
     padding: 0.15rem 0.35rem;
 }
+
+.alert-container {
+    justify-content: center;
+}

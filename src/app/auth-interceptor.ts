@@ -18,7 +18,6 @@ export class AuthInterceptor implements HttpInterceptor {
 
     intercept(req: HttpRequest<any>,
               next: HttpHandler): Observable<HttpEvent<any>> {
-        // console.log(req.url);
         let token;
         if ( req.url.includes('refresh') ) {
             token = localStorage.getItem('refreshToken');

@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, OnDestroy, OnChanges } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { DayService, WeekService, View, DragAndDropService, EventSettingsModel, TimeScaleModel, CellClickEventArgs, ScheduleComponent, ResourceDetails, ActionEventArgs, GroupModel, PopupEventArgs, ExportOptions, ExcelExportService, ICalendarExport, ICalendarExportService } from '@syncfusion/ej2-angular-schedule';
 import { FieldsSettingsModel } from '@syncfusion/ej2-angular-navigations';
 import { CompetitionHandlerService } from '../competition.handler.service';
@@ -6,17 +6,29 @@ import { Competition } from '../models/competition.model';
 import { Test } from '../models/test.model';
 import { Venue } from '../models/venue.model';
 import { DateTimePicker } from '@syncfusion/ej2-calendars';
+import { trigger, state, transition, animate, style } from '@angular/animations';
 
 @Component({
   selector: 'app-schedule-container',
   providers: [DayService, WeekService, DragAndDropService, ExcelExportService, ICalendarExportService],
   templateUrl: './schedule-container.component.html',
   styleUrls: ['./schedule-container.component.css'],
+  animations: [
+    trigger('openClose', [
+      state('show', style({marginLeft: '0'})),
+      state('hidden', style({marginLeft: '-25%'})),
+      transition('show <=> hidden', [
+        animate('100ms linear')
+      ])
+    ]),
+  ]
 })
-export class ScheduleContainerComponent implements OnInit, OnChanges {
+
+export class ScheduleContainerComponent implements OnInit {
   currentCompetition: Competition;
   scheduledTests: Test[] = [];
   unscheduledTests: Test[] = [];
+  menuState = 'show';
 
   @ViewChild('scheduleObj', { static: false }) public scheduleObj: ScheduleComponent;
 
@@ -50,7 +62,6 @@ export class ScheduleContainerComponent implements OnInit, OnChanges {
         this.currentCompetition = competition;
         this.competitionHandler.getTests(this.currentCompetition.uri).subscribe(
           tests => {
-            console.log(tests);
             for (let test of tests) {
               if (test.starttime) {
                 this.scheduledTests.push(test);
@@ -58,19 +69,11 @@ export class ScheduleContainerComponent implements OnInit, OnChanges {
                 this.unscheduledTests.push(test);
               }
             }
-            this.scheduleObj.refreshEvents();
+            if (this.scheduleObj) this.scheduleObj.refreshEvents();
           }
         );
       }
     );
-  }
-
-  ngOnChanges() {
-    console.log(this.scheduledTests);
-  }
-
-  checkAction(e) {
-    console.log(e);
   }
 
   onDrag(e) {
@@ -169,6 +172,10 @@ export class ScheduleContainerComponent implements OnInit, OnChanges {
 
   print(): void {
     this.scheduleObj.exportToICalendar(this.currentCompetition.name.replace(' ', '-') + '-schedule');
+  }
+
+  toggleMenu(e) {
+    this.menuState = e;
   }
 
   // dataBinding(): void {

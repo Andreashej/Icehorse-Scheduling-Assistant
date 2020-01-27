@@ -108,8 +108,6 @@ export class DayComponent implements OnInit {
         }
         
         vBlock.setTest(this.tests.find(test => (test.blockIndex == i && test.venue.uri == venue.uri)));
-        // console.log(vBlock.test);
-        
         
         if (vBlock.test) {
           this.busyUntil[venue.uri] = i + vBlock.test.getBlockSpan();

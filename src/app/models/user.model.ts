@@ -2,7 +2,7 @@ import { Competition } from './competition.model';
 import { Deserializeable } from './deserializeable.model';
 
 export class User implements Deserializeable {
-    userID: Number;
+    id: Number;
     username: string;
     email: string;
     uri: string;

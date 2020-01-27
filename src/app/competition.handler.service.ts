@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable, BehaviorSubject } from 'rxjs';
 import { tap, map } from 'rxjs/operators';
 import 'rxjs/operators/map';
+import { environment } from '../environments/environment';
 
 import { Competition } from './models/competition.model';
 import { User } from './models/user.model';
@@ -13,7 +14,7 @@ import { Venue } from './models/venue.model';
 export class CompetitionHandlerService {
 
   constructor(private http: HttpClient) { }
-  serverUrl = 'https://api.andreashej.com';
+  serverUrl = environment.apiEndpoint;
 
   changeCompetition: BehaviorSubject<Competition> = null;
 

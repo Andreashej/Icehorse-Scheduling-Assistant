@@ -8,6 +8,9 @@
     <div #droppable class="droppable-area">
       <app-test-card *ngFor="let test of tests" [test]="test" (testDropped)="testDrop($event)" (testDragStart)="onDrag($event)"></app-test-card>
     </div>
+    <div class="btn btn-primary menutoggle" (click)="toggleMenu()">
+      <i class="fa fa-caret-left" [class.fa-caret-left]="menuState === 'show'" [class.fa-caret-right]="menuState === 'hidden'" ></i>
+    </div>
   </div>
   <!-- <div class="btn-container">
     <div class="input-group mb-3">

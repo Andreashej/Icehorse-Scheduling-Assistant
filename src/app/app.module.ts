@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { NgDragDropModule } from 'ng-drag-drop';
 import { FormsModule } from '@angular/forms';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
@@ -54,7 +55,8 @@ import { PrintContainerComponent } from './print-container/print-container.compo
     NgbModule,
     AppRoutingModule,
     ScheduleModule,
-    TreeViewModule
+    TreeViewModule,
+    BrowserAnimationsModule,
   ],
   providers: [
     CompetitionImporterService,

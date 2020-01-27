@@ -112,5 +112,38 @@
         </table>
       </ng-template>
     </ngb-tab>
+    <ngb-tab title="Users">
+      <ng-template ngbTabContent>
+        <div *ngIf="currentCompetition">
+          <h1>Manage users for competition</h1>
+          <div class="row mt-2">
+            <div class="col input-group">
+              <div class="input-group-prepend">
+                <label for="username" class="input-group-text">Username</label>
+              </div>
+              <input id="username" #username type="text" class="form-control" [(ngModel)]="newUserName">
+            </div>
+          </div>
+          <div class="row mt-2">
+            <div class="col input-group">
+              <div class="input-group-prepend">
+                <label for="password" class="input-group-text">Password</label>
+              </div>
+              <input id="password" #password type="password" class="form-control" [(ngModel)]="newUserPass">
+            </div>
+          </div>
+          <div class="row mt-2">
+            <div class="col">
+              <button (click)="createUser()" class="btn btn-success">Create User</button>
+            </div>
+          </div>
+          <div class="row mt-2">
+            <div class="col">
+              <ngb-alert *ngIf="alert.message !== ''" [dismissible]="false" [type]="alert.type">{{alert.message}}</ngb-alert>
+            </div>
+          </div>
+        </div>
+      </ng-template>
+    </ngb-tab>
   </ngb-tabset>
 </div>

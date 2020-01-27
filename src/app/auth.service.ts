@@ -4,6 +4,8 @@ import {tap, shareReplay, map} from 'rxjs/internal/operators';
 import * as jwt_decode from 'jwt-decode';
 import * as moment from "moment";
 import { Router } from '@angular/router';
+import { environment } from '../environments/environment';
+import { User } from './models/user.model';
 import { Observable } from 'rxjs';
 
 @Injectable({
@@ -12,7 +14,7 @@ import { Observable } from 'rxjs';
 
 export class AuthService {
 
-  serverUrl = 'https://api.andreashej.com';
+  serverUrl = environment.apiEndpoint;
 
   constructor(private http: HttpClient,
               private router: Router) { }
@@ -24,31 +26,39 @@ export class AuthService {
     )
   }
 
+  createUser(username: string, password: string): Observable<User> {
+    return this.http.post<any>(`${this.serverUrl}/api/registration`, {username, password}).pipe(
+      map(res => new User().deserialize(res.response))
+    );
+  }
+
+  getUser(username: string): Observable<User> {
+    return this.http.get<any>(`${this.serverUrl}/api/user/${username}`).pipe(
+      map(res => new User().deserialize(res.response))
+    );
+  }
+
   private setSession(authResult) {
-    // console.log("Session set");
     localStorage.setItem("accessToken", authResult.access_token);
     localStorage.setItem("refreshToken", authResult.refresh_token);
   }
 
   logout() {
+    localStorage.removeItem("currentCompetition");
     this.logoutAccess().subscribe(
       () => this.logoutRefresh().subscribe(
         () => {
-          console.log('Logged out');
           this.router.navigateByUrl('/login')
         },
         (err) => {
-          console.log('Logged out access only');
           this.router.navigateByUrl('/login')
         }
       ),
       (err) => this.logoutRefresh().subscribe(
         () => {
-          console.log('Logged out refresh only');
           this.router.navigateByUrl('/login')
         },
         (err) => {
-          console.log('Failed logout refresh and access');
           this.router.navigateByUrl('/login')
         }
       )

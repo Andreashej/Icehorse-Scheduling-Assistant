@@ -10,18 +10,21 @@ import { Draggable, Droppable, DropEventArgs } from '@syncfusion/ej2-base';
 @Component({
   selector: 'app-unassigned-tests',
   templateUrl: './unassigned-tests.component.html',
-  styleUrls: ['./unassigned-tests.component.css']
+  styleUrls: ['./unassigned-tests.component.css'],
 })
+
 export class UnassignedTestsComponent implements OnInit {
 
   @Output() testDropped = new EventEmitter();
   @Output() testDragStart = new EventEmitter();
+  @Output() menuToggle = new EventEmitter();
   @Input() tests: Test[];
+
+  menuState = 'show';
 
   constructor() { }
 
   ngOnInit() {
-    
   }
 
   testDrop(e) {
@@ -30,6 +33,11 @@ export class UnassignedTestsComponent implements OnInit {
 
   onDrag(e) {
     this.testDragStart.emit(e);
+  }
+
+  toggleMenu() {
+    this.menuState = this.menuState === 'show' ? 'hidden' : 'show';
+    this.menuToggle.emit(this.menuState);
   }
 
   // reloadTestData(): void {

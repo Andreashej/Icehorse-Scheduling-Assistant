@@ -1,6 +1,7 @@
 import { Component, OnInit, OnChanges, ViewChild } from '@angular/core';
 import { CompetitionHandlerService } from '../competition.handler.service';
 import { CompetitionImporterService } from '../competition-importer.service';
+import { AuthService } from '../auth.service';
 import { GlobalUpdateService } from '../global-update.service';
 import { Competition } from '../models/competition.model';
 import { Test } from '../models/test.model';
@@ -9,6 +10,7 @@ import { Venue } from '../models/venue.model';
 import { NgbTypeahead, NgbHighlight } from '@ng-bootstrap/ng-bootstrap';
 import { Subject, Observable, merge } from 'rxjs';
 import { debounceTime, distinctUntilChanged, filter, map } from 'rxjs/operators';
+import { Alert } from '../models/alert.model';
 
 @Component({
   selector: 'app-settings',
@@ -19,11 +21,17 @@ export class SettingsComponent implements OnInit {
 
   constructor(private competitionHandler: CompetitionHandlerService,
               private competitionImporter: CompetitionImporterService,
+              private auth: AuthService,
               private updateHandler: GlobalUpdateService) { }
   tests: Test[];           
   currentCompetition: Competition = null;
   addVenue;
   allVenues: Venue[] = [];
+  newUserName: string = '';
+  newUserPass: string = '';
+
+  
+  alert = new Alert('', '');
 
   
   @ViewChild('venues', { static: false }) instance: NgbTypeahead;
@@ -53,6 +61,7 @@ export class SettingsComponent implements OnInit {
   ngOnInit() {
     this.competitionHandler.getCurrentCompetition().subscribe(
       competition => {
+        console.log(competition);
         this.currentCompetition = competition;
         this.competitionHandler.getTests(this.currentCompetition.uri).subscribe(
           res => this.tests = res
@@ -142,6 +151,35 @@ export class SettingsComponent implements OnInit {
         this.currentCompetition.venues.push(e.item);
       },
       err => console.log(err)
+    )
+  }
+
+  createUser() {
+    this.auth.getUser(this.newUserName).subscribe(
+      res => {
+        this.alert.message = 'The username is already in use.'
+        this.alert.type = 'primary';
+      },
+      err => {
+        if(err.status === 404 && this.newUserName && this.newUserPass) {
+          this.auth.createUser(this.newUserName, this.newUserPass).subscribe(
+            user => {
+              console.log('User created', user);
+              let c = new Competition();
+              c.user = user.id;
+      
+              this.competitionHandler.updateCompetition(this.currentCompetition.uri, c).subscribe(
+                res => this.currentCompetition = res,
+                err => console.log(err)
+              )
+            },
+            err => console.log(err)
+          );
+        } else {
+          this.alert.message = 'Please fill in all fields.';
+          this.alert.type = 'warning';
+        }
+      }
     )
   }
 

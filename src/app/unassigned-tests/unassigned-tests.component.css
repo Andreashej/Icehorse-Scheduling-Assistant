@@ -37,6 +37,22 @@ button {
 }
 
 .tests {
-    
     height: 100%;
+}
+
+.menutoggle {
+    position: absolute;
+    top: 50%;
+    right: -35px;
+    z-index: 99;
+    box-shadow: black 0 0 10px;
+    background-color: #312783;
+    border-color: #312783;
+    width: 35px;
+    height: 50px;
+    border-radius: 0 100px 100px 0;
+    font-size: 25px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }

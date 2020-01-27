@@ -1,6 +1,9 @@
 <div class="container-fluid">
-  <div class="row h-100">
-    <app-unassigned-tests *ngIf="unscheduledTests.length > 0" class="col-3 h-100" [class.all-assigned]="" (testDropped)="dragEnd($event)" (testDragStart)="onDrag($event)" [tests]="unscheduledTests"></app-unassigned-tests>
+  <div *ngIf="!currentCompetition" class="row alert-container py-4">
+    <ngb-alert [dismissible]="false" type="danger">Please select a competition before proceeding.</ngb-alert>
+  </div>
+  <div *ngIf="currentCompetition" class="row h-100">
+    <app-unassigned-tests *ngIf="unscheduledTests.length > 0" [@openClose]="menuState" class="col-3 h-100 p-0" [class.all-assigned]="" (testDropped)="dragEnd($event)" (testDragStart)="onDrag($event)" [tests]="unscheduledTests" (menuToggle)="toggleMenu($event)"></app-unassigned-tests>
     <ejs-schedule *ngIf="currentCompetition" #scheduleObj class="col h-100" cssClass="schedule-cell-dimension"
     [selectedDate]="currentCompetition.startdate" [eventDragArea]="droppable-area" [timeScale]="timeScale" [eventSettings]="eventSettings" [group]="group"
     (dragStop)="dragEnd($event)" (popupOpen)="onPopupOpen($event)">

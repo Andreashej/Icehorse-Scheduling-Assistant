@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable ,  BehaviorSubject } from 'rxjs';
+import { environment } from '../environments/environment';
 
 @Injectable()
 export class CompetitionImporterService {
@@ -9,7 +10,7 @@ export class CompetitionImporterService {
   _trackChange = new BehaviorSubject(false);
 
   constructor(private http: HttpClient) { }
-  base_url = 'https://api.andreashej.com';
+  base_url = environment.apiEndpoint;
   trackChange = this._trackChange.asObservable();
 
   changeActiveTrack(track: string): void {
