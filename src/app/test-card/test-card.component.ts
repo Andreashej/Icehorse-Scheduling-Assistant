@@ -42,6 +42,10 @@ export class TestCardComponent implements OnInit, AfterViewInit {
     );
   }
 
+  testGrabbed() {
+    
+  }
+
   toggleFinal(phase: string) {
     // this.competitionImporter.toggleFinal(this.test._id, phase).subscribe(
     //   update => this.test = update,

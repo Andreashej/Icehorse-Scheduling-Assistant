@@ -23,7 +23,11 @@ export class CompetitionHandlerService {
   }
 
   getCurrentCompetition(): Observable<Competition> {
-    return this.getCompetition(localStorage.getItem('currentCompetition'));
+    if (localStorage.getItem("currentCompetition")) {
+      return this.getCompetition(localStorage.getItem('currentCompetition'));
+    } else {
+      return new Observable<Competition>();
+    }
   }
 
   getSettings(): Observable<any> {

@@ -24,7 +24,7 @@ export class LoginComponent implements OnInit {
         .subscribe(
           (res) => {
             console.log(res);
-            this.router.navigateByUrl('/');
+            window.location.replace('/');
           },
           (err) => {
             console.log(err);
