@@ -39,3 +39,8 @@ app-unassigned-tests {
 .alert-container {
     justify-content: center;
 }
+
+.sidebar {
+    min-width: 400px;
+    max-width: 400px;
+}

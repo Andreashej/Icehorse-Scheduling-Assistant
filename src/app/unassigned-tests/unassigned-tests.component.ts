@@ -18,13 +18,19 @@ export class UnassignedTestsComponent implements OnInit {
   @Output() testDropped = new EventEmitter();
   @Output() testDragStart = new EventEmitter();
   @Output() menuToggle = new EventEmitter();
-  @Input() tests: Test[];
+  tests: Test[];
 
   menuState = 'show';
 
-  constructor() { }
+  constructor(private competitionHandler: CompetitionHandlerService) { }
 
   ngOnInit() {
+    const uri = localStorage.getItem('currentCompetition');
+    if( uri ) {
+      this.competitionHandler.getTests(uri, [{key: 'hasStarttime', value: 0}]).subscribe(
+        tests => this.tests = tests
+      );
+    }
   }
 
   testDrop(e) {

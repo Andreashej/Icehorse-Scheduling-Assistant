@@ -3,6 +3,7 @@
     box-shadow: 5px 0px 10px -5px black;
     padding: 10px 25px;
     overflow-y: scroll;
+    min-width: 400px;
 }
 
 button {

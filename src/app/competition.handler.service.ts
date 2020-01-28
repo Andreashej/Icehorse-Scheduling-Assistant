@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable, BehaviorSubject } from 'rxjs';
 import { tap, map } from 'rxjs/operators';
 import 'rxjs/operators/map';
@@ -72,16 +72,12 @@ export class CompetitionHandlerService {
     )
   }
 
-  getTests(uri: string): Observable<Test[]> {
-    return this.http.get<any>(`${this.serverUrl}${uri}/tests`).pipe(
-      map(res => {
-        let tests: Test[] = [];
-        for (let test of res.response) {
-          tests.push(new Test().deserialize(test));
-        }
-
-        return tests;
-      })
+  getTests(uri: string, filters: any[] = []): Observable<Test[]> {
+    let filterString = '';
+    if (filters) filterString = '?' + filters.map(filter => filter.key + "=" + filter.value);
+    
+    return this.http.get<any>(`${this.serverUrl}${uri}/tests${filterString}`).pipe(
+      map(res => res.response.map(test => new Test().deserialize(test)))
     );
   }
 
@@ -97,13 +93,7 @@ export class CompetitionHandlerService {
 
   getAllVenues(): Observable<Venue[]> {
     return this.http.get<any>(`${this.serverUrl}/api/competitions/0/venues`).pipe(
-      map(res => {
-        let venues: Venue[] = [];
-        for (let venue of res.response) {
-          venues.push(new Venue().deserialize(venue));
-        }
-        return venues;
-      })
+      map(res => res.response.map(venue => new Venue().deserialize(venue)))
     )
   }
 }

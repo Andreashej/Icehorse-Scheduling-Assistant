@@ -27,6 +27,7 @@ export class Competition implements Deserializeable {
         if (date.length < 2) {
             date = '0' + date;
         }
+
         return `${this.startdate.getFullYear()}-${month}-${date}`;
     }
     
@@ -39,6 +40,7 @@ export class Competition implements Deserializeable {
         if (date.length < 2) {
             date = '0' + date;
         }
+
         return `${this.enddate.getFullYear()}-${month}-${date}`;
     }
 

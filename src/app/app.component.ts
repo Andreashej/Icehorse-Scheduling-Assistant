@@ -7,7 +7,7 @@ import { AuthService } from './auth.service';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit {
-  public title = 'Icehorse Scheduling Assistant';
+  public title = 'Icehorse Competition Assistant';
   // activeCompetition = null
 
   // constructor(private auth: AuthService) {}

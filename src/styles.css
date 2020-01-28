@@ -33,11 +33,6 @@ ngb-popover-window {
     width: 274px;
 }
 
-/* .schedule-cell-dimension.e-schedule .e-vertical-view .e-date-header-wrap table col,
-.schedule-cell-dimension.e-schedule .e-vertical-view .e-content-wrap table col {
-    width: 200px;
-} */
-
 .schedule-cell-dimension.e-schedule .e-vertical-view .e-time-cells-wrap table td,
 .schedule-cell-dimension.e-schedule .e-vertical-view .e-work-cells,
 .schedule-cell-dimension.e-schedule .e-month-view .e-work-cells
@@ -45,13 +40,20 @@ ngb-popover-window {
     height: 10px;
 }
 
-/* .schedule-cell-dimension.e-schedule .e-month-view .e-work-cells,
-.schedule-cell-dimension.e-schedule .e-month-view .e-date-header-wrap table col {
-    width: 200px;
-} */
-
 .schedule-cell-dimension.e-schedule .e-vertical-view .e-time-cells-wrap table td {
     overflow: visible;
+    padding: 0;
+    height: 10px;
+    font-size: 0;
+}
+
+.schedule-cell-dimension.e-schedule .e-vertical-view .e-time-cells-wrap table td span {
+    height: 9px;
+    overflow: visible;
+    display: block;
+    font-size: 11px;
+    text-align: right;
+    padding-right: 5px;
 }
 
 .e-schedule .e-vertical-view .e-alternate-cells {

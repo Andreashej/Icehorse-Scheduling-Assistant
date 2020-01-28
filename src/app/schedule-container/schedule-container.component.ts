@@ -1,22 +1,20 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { DayService, WeekService, View, DragAndDropService, EventSettingsModel, TimeScaleModel, CellClickEventArgs, ScheduleComponent, ResourceDetails, ActionEventArgs, GroupModel, PopupEventArgs, ExportOptions, ExcelExportService, ICalendarExport, ICalendarExportService } from '@syncfusion/ej2-angular-schedule';
-import { FieldsSettingsModel } from '@syncfusion/ej2-angular-navigations';
+import { DayService, DragAndDropService, EventSettingsModel, TimeScaleModel, CellClickEventArgs, ScheduleComponent, GroupModel, PopupEventArgs, WeekService } from '@syncfusion/ej2-angular-schedule';
 import { CompetitionHandlerService } from '../competition.handler.service';
 import { Competition } from '../models/competition.model';
 import { Test } from '../models/test.model';
 import { Venue } from '../models/venue.model';
-import { DateTimePicker } from '@syncfusion/ej2-calendars';
 import { trigger, state, transition, animate, style } from '@angular/animations';
 
 @Component({
   selector: 'app-schedule-container',
-  providers: [DayService, WeekService, DragAndDropService, ExcelExportService, ICalendarExportService],
+  providers: [DayService, DragAndDropService, WeekService],
   templateUrl: './schedule-container.component.html',
   styleUrls: ['./schedule-container.component.css'],
   animations: [
     trigger('openClose', [
       state('show', style({marginLeft: '0'})),
-      state('hidden', style({marginLeft: '-25%'})),
+      state('hidden', style({minWidth: 0, maxWidth: 0})),
       transition('show <=> hidden', [
         animate('100ms linear')
       ])
@@ -26,53 +24,56 @@ import { trigger, state, transition, animate, style } from '@angular/animations'
 
 export class ScheduleContainerComponent implements OnInit {
   currentCompetition: Competition;
-  scheduledTests: Test[] = [];
-  unscheduledTests: Test[] = [];
+  // scheduledTests: Test[] = [];
+  // unscheduledTests: Test[] = [];
   menuState = 'show';
 
-  @ViewChild('scheduleObj', { static: false }) public scheduleObj: ScheduleComponent;
+  @ViewChild('scheduleObj', { static: false })
+  public scheduleObj: ScheduleComponent;
 
-  eventSettings: EventSettingsModel = {
-    dataSource: this.scheduledTests,
+  public eventSettings: EventSettingsModel = {
+    // dataSource: this.scheduledTests,
     fields: {
-      id: 'uri',
+      id: 'id',
       subject: { name: 'testcode', title: 'Testcode' },
       startTime: { name: 'starttime', title: 'Start Time' },
       endTime: { name: 'endtime', title: 'End Time'}
     }
   };
 
-  timeScale: TimeScaleModel = {
+  public timeScale: TimeScaleModel = {
     slotCount: 12,
-    interval: 60
+    interval: 60,
+    enable: true
   };
 
-  // Resources dummy vars
+  public group: GroupModel = null;
 
-  group: GroupModel = {
-    byDate: true,
-    resources: ['Venues'],
-  }
+  loading = true;
 
   constructor(private competitionHandler: CompetitionHandlerService) { }
 
   ngOnInit() {
     this.competitionHandler.getCurrentCompetition().subscribe(
       competition => {
+        this.loading = false;
         this.currentCompetition = competition;
-        this.competitionHandler.getTests(this.currentCompetition.uri).subscribe(
-          tests => {
-            for (let test of tests) {
-              if (test.starttime) {
-                this.scheduledTests.push(test);
-              } else {
-                this.unscheduledTests.push(test);
-              }
-            }
-            if (this.scheduleObj) this.scheduleObj.refreshEvents();
-          }
-        );
-      }
+        
+        if(this.currentCompetition.venues[0].name !== 'default') {
+          this.group = {
+            byDate: true,
+            resources: ['Venues'],
+          };
+        }
+      },
+      err => console.log(err)
+    );
+    
+  }
+
+  onCreate() {
+    this.competitionHandler.getTests(this.currentCompetition.uri, ).subscribe(
+      tests => this.scheduleObj.eventSettings.dataSource = tests
     );
   }
 
@@ -111,8 +112,7 @@ export class ScheduleContainerComponent implements OnInit {
     // console.log(test);
     this.competitionHandler.updateTest(test.uri, test).subscribe(
       (res) => {
-        // console.log(res);
-        res = test;
+        test = res;
       },
       (err) => console.log(err)
     );
@@ -168,10 +168,6 @@ export class ScheduleContainerComponent implements OnInit {
         err => console.log(err)
       )
     }
-  }
-
-  print(): void {
-    this.scheduleObj.exportToICalendar(this.currentCompetition.name.replace(' ', '-') + '-schedule');
   }
 
   toggleMenu(e) {

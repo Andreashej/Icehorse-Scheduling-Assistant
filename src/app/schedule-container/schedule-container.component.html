@@ -1,14 +1,15 @@
 <div class="container-fluid">
-  <div *ngIf="!currentCompetition" class="row alert-container py-4">
+  <div *ngIf="!currentCompetition && !loading" class="row alert-container py-4">
     <ngb-alert [dismissible]="false" type="danger">Please select a competition before proceeding.</ngb-alert>
   </div>
   <div *ngIf="currentCompetition" class="row h-100">
-    <app-unassigned-tests [@openClose]="menuState" class="col-3 h-100 p-0" [class.all-assigned]="" (testDropped)="dragEnd($event)" (testDragStart)="onDrag($event)" [tests]="unscheduledTests" (menuToggle)="toggleMenu($event)"></app-unassigned-tests>
-    <ejs-schedule *ngIf="currentCompetition" #scheduleObj class="col h-100" cssClass="schedule-cell-dimension"
-    [selectedDate]="currentCompetition.startdate" [eventDragArea]="droppable-area" [timeScale]="timeScale" [eventSettings]="eventSettings" [group]="group"
-    (dragStop)="dragEnd($event)" (popupOpen)="onPopupOpen($event)">
+    <app-unassigned-tests [@openClose]="menuState" class="col-3 h-100 p-0 sidebar" (testDropped)="dragEnd($event)" (testDragStart)="onDrag($event)" (menuToggle)="toggleMenu($event)"></app-unassigned-tests>
+    <ejs-schedule #scheduleObj class="col h-100" cssClass="schedule-cell-dimension"
+      [selectedDate]="currentCompetition.startdate" [eventSettings]="eventSettings" [timeScale]="timeScale" [allowDragAndDrop]="true"
+      (dragStop)="dragEnd($event)" (popupOpen)="onPopupOpen($event)" (created)="onCreate()">
       <e-views>
-        <e-view displayName="Competition" option="Day" [interval]="currentCompetition.getDays()"></e-view>
+        <e-view displayName="Competition" option="Day" [interval]="currentCompetition.getDays()" startHour="07:00" endHour="23:00" [group]="group"></e-view>
+        <e-view option="Week" startHour="07:00" endHour="23:00" [group]="group" firstDayOfWeek="1"></e-view>
       </e-views>
       <ng-template #eventSettingsTemplate let-data>
           <div class='template-wrap' [style.background]="data.SecondaryColor">
@@ -50,8 +51,7 @@
           </div>
       </ng-template>
       <e-resources>
-        <e-resource field="venue_uri" title="name" name="Venues" [allowMultiple]="false" [dataSource]="currentCompetition.venues" idField="uri" textField="name">
-        </e-resource>
+        <e-resource field="venue_id" title="Venue" name="Venues" [allowMultiple]="false" [dataSource]="currentCompetition.venues" idField="id" textField="name"></e-resource>
       </e-resources>
       <ng-template #editorTemplate let-data>
           <div class="container">

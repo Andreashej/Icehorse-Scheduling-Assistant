@@ -20,7 +20,7 @@ export class TestCardComponent implements OnInit, AfterViewInit {
   free_right = 0;
 
 
-  @ViewChild('testElt', { static: true }) testElement: any;
+  @ViewChild('testElt', { static: false }) testElement: any;
 
   constructor(private competitionImporter: CompetitionImporterService, private updateService: GlobalUpdateService) {
   }
@@ -40,10 +40,6 @@ export class TestCardComponent implements OnInit, AfterViewInit {
         }
       }
     );
-  }
-
-  testGrabbed() {
-    
   }
 
   toggleFinal(phase: string) {
