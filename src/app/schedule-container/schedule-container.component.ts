@@ -91,7 +91,7 @@ export class ScheduleContainerComponent implements OnInit {
         test.starttime = null;
         this.scheduleObj.deleteEvent(test.uri);
       }
-      this.unscheduledTests.push(test);
+      // this.unscheduledTests.push(test);
     } else {
       const inSchedule = (test.starttime) ? true : false; // Define variable to check if test is already in schedule
       
@@ -105,7 +105,7 @@ export class ScheduleContainerComponent implements OnInit {
         this.scheduleObj.addEvent(test);
       } else {
         if (!test.starttime) {
-          this.unscheduledTests.push(test);
+          // this.unscheduledTests.push(test);
         }
       }
     }
@@ -149,7 +149,7 @@ export class ScheduleContainerComponent implements OnInit {
     if (!test[type.toLowerCase()]) {
       this.competitionHandler.createTest(this.currentCompetition.uri, fin).subscribe(
         res => {
-          this.unscheduledTests.push(res);
+          // this.unscheduledTests.push(res);c
           console.log(res);
           test[type.toLowerCase()] = res.uri;
           this.competitionHandler.updateTest(test.uri, test).subscribe(
