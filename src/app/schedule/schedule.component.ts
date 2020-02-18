@@ -53,6 +53,7 @@ export class ScheduleComponent implements OnInit {
         resources: ['Venues'],
       };
     }
+    this.scheduleObj.timezone = 'UTC';
   }
 
   onCreate() {
