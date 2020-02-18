@@ -8,10 +8,10 @@
       <i class="fa fa-users"></i>
       <span>Judges</span> 
     </a> -->
-    <a class="nav-link" routerLink="/print">
+    <!-- <a class="nav-link" routerLink="/print">
       <i class="fa fa-print"></i>
       <span>Print</span>
-    </a>
+    </a> -->
     <a class="nav-link" routerLink="/settings">
       <i class="fa fa-cog"></i>
       <span>Settings</span>
@@ -29,7 +29,7 @@
   <div *ngIf="authService.isLoggedIn() && currentUser" class="right-align">
     <select #competitionDropdown [(ngModel)]="currentCompetitionUri" class="btn btn-light" (change)="handleCompetitionChange()">
       <option *ngIf="!currentCompetition" disabled selected>Select a competition...</option>
-      <option *ngFor="let competition of currentUser.competitions" [value]="competition.uri">{{ competition.name }}</option>
+      <option *ngFor="let competition of currentUser.competitions" [value]="competition._links.self">{{ competition.name }}</option>
     </select>
   </div>
 

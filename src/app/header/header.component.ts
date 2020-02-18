@@ -34,6 +34,7 @@ export class HeaderComponent implements OnInit {
         this.currentUser = user
       },
       err => {
+        console.log(err);
         this.router.navigateByUrl('/login');
       }
     );
@@ -72,7 +73,7 @@ export class HeaderComponent implements OnInit {
     this.competitionHandler.getCurrentCompetition().subscribe(
       competition => {
         this.currentCompetition = competition;
-        this.currentCompetitionUri = competition.uri;
+        this.currentCompetitionUri = competition._links.self;
       },
       err => console.log(err)
     )

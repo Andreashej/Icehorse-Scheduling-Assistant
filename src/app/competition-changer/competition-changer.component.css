@@ -1,0 +1,15 @@
+.list-group-item:hover {
+    background-color: rgba(0,0,0,.125);
+}
+
+.list-group-item.active {
+    pointer-events: none;
+    background-color: #292930;
+    color: white;
+    border-color: #292930;
+}
+
+.list-group {
+    max-height: 80vh;
+    overflow-y: scroll;
+}

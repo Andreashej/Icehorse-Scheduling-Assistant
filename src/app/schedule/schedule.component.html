@@ -1,3 +1,67 @@
-<div class="row h-100 schedule" *ngIf="settings">
-  <app-day class="day col" *ngFor="let day of settings.days" [date]="day" [class.h-100]="settings.hours < 11"></app-day>
-</div>
+<ejs-schedule #scheduleObj 
+  cssClass="schedule-cell-dimension"
+  width="100%"
+  height="100%"
+  
+  [selectedDate]="competition.startdate"
+  [eventSettings]="eventSettings"
+  [timeScale]="timeScale"
+  [allowDragAndDrop]="true"
+  [group]="group"
+  [allowResizing]="true"
+  [currentView]="Day"
+  [timezone]="UTC"
+  [workHours]="workHours"
+  [showHeaderBar]="false"
+  
+  (dragStart)="dragStart($event)"
+  (dragStop)="dragEnd($event)" 
+  (created)="onCreate()" 
+  (resizeStart)="onResizeStart($event)"
+  (resizeStop)="onResizeStop($event)"
+  (resizing)="onResize($event)"
+  (testClick)="createTest($event)"
+>
+
+  <e-views>
+    <e-view displayName="Competition" option="Day" [interval]="competition.getDays()" startHour="07:00" endHour="23:00"></e-view>
+    <!-- <e-view option="Week" startHour="07:00" endHour="23:00"></e-view> -->
+  </e-views>
+
+  <ng-template #eventSettingsTemplate let-data>
+    <app-test-card [test]="data"></app-test-card>
+  </ng-template>
+
+  <e-resources>
+    <e-resource field="venue" title="Venue" name="Venues" [allowMultiple]="false" [dataSource]="competition.venues" idField="venue_id" textField="name"></e-resource>
+  </e-resources>
+  
+  <ng-template #quickInfoTemplatesHeader let-data>
+    <div class="modal-header">
+      <h5 *ngIf="data.elementType == 'event'" class="modal-title text-light">{{ data.label }}</h5>
+      <h5 *ngIf="data.elementType == 'cell'" class="modal-title">Insert new</h5>
+      <div class="buttons">
+        <button *ngIf="data.elementType == 'event'" type="button" class="close delete text-danger" (click)="deleteTest(data)"><i class="fa fa-trash"></i></button>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="onCloseClick($event)" [class.text-dark]="data.elementType =='cell'">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+    </div>  
+  </ng-template>
+
+  <ng-template #quickInfoTemplatesContent let-data>
+    <app-schedule-block-list *ngIf="data.elementType == 'cell'" [data]="data" (created)="updateSchedule($event)"></app-schedule-block-list>
+  </ng-template>
+
+  <ng-template #quickInfoTemplatesFooter let-data>
+  </ng-template>
+
+  <ng-template #timeScaleMajorSlotTemplate let-data>
+    <span class="timescaleHour">{{ data.date | date:"HH:mm" }}</span>
+  </ng-template>
+
+  <ng-template #dateHeaderTemplate let-data>
+    <div class="e-header-day">{{ data.date | date:"EEEE"}}</div>
+    <div class="e-header-date">{{data.date | date:"d MMMM"}}</div>
+  </ng-template>
+</ejs-schedule>

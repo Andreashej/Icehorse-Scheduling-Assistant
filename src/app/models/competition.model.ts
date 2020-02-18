@@ -8,7 +8,7 @@ export class Competition implements Deserializeable {
     startdate: Date;
     enddate: Date;
     venues: Venue[];
-    uri: string;
+    _links: any;
     venue: string; // Temp var used to build the query for adding a track to the competition
     user: Number; // As above
 

@@ -30,12 +30,12 @@ export class PrintHandlerComponent implements OnInit {
     this.competitionHandler.getCurrentCompetition().subscribe(
       competition => {
         this.currentCompetition = competition;
-        this.competitionHandler.getTests(this.currentCompetition.uri).subscribe(
+        this.competitionHandler.getTests(this.currentCompetition._links.self).subscribe(
           tests => {
             for (let test of tests) {
-              if (test.starttime) {
+              // if (test.starttime) {
                 this.tests.push(test);
-              }
+              // }
             }
           }
         );
@@ -62,9 +62,9 @@ export class PrintHandlerComponent implements OnInit {
     return new Date(day);
   }
 
-  getTestsByDay(day): Test[] {
-    return this.tests.filter(test => test.starttime.getDate() === day.getDate());
-  }
+  // getTestsByDay(day): Test[] {
+    // return this.tests.filter(test => test.starttime.getDate() === day.getDate());
+  // }
 
   print(): void {
     setTimeout( () => window.print(), 100);

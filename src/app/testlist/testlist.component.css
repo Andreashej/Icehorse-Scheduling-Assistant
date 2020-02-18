@@ -1,0 +1,11 @@
+.btn-group-sm>.btn, .btn-sm {
+    line-height: 1;
+}
+
+.btn-success, .badge-success {
+    background-color: #3EB650;
+}
+
+.btn-danger, .badge-danger {
+    background-color: #E12B38;
+}

@@ -1,14 +1,13 @@
-.day {
-    border-right: #312783 thin solid;
-    padding: 10px 0;
-    height: fit-content;
+.timescaleHour {
+    font-size: 14px!important;
 }
 
-.day:last-of-type {
-    border: none;
+.close {
+    float: none;
+    color: white;
+    text-shadow: none;
 }
 
-.schedule {
-    overflow-y: scroll;
-    overflow-x: scroll;
+.delete {
+    opacity: 1;
 }

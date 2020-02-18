@@ -1,0 +1,24 @@
+<ul class="list-group list-group-flush mb-0">
+    <li class="list-group-item" *ngFor="let test of tests">
+        <div class="d-flex justify-content-between w-100">
+            <div class="d-inline-flex btn btn-sm text-left px-0">{{ test.testcode }} ({{ test.unscheduled_groups }})</div>
+            <div class="btn-group btn-group-sm d-inline-flex">
+                <button *ngIf="test.unscheduled_groups > 0" class="btn btn-primary" (click)="createTestBlock(test, 'PREL')">Add PREL</button>
+                <button *ngIf="!test.hasBFIN && test.allowBFIN" class="btn btn-primary" (click)="createTestBlock(test, 'BFIN')">Add BFIN</button>
+                <button *ngIf="!test.hasAFIN && test.allowAFIN" class="btn btn-primary" (click)="createTestBlock(test, 'AFIN')">Add AFIN</button>
+            </div>
+        </div>
+    </li>
+    <li class="list-group-item">
+        <div class="d-flex justify-content-between w-100">
+            <div class="d-inline-flex btn btn-sm text-left px-0">Custom</div>
+            <div class="input-group input-group-sm d-inline-flex">
+                <input #label type="text" placeholder="Label" class="form-control" />
+                <input #duration type="number" placeholder="Duration" class="form-control" />
+                <div class="input-group-append">
+                    <button class="btn btn-success"><i class="fa fa-plus" (click)="createTestBlock({'label': label.value, 'duration': duration.value}, 'CUSTOM')"></i></button>
+                </div>
+            </div>
+        </div>
+    </li>
+</ul>

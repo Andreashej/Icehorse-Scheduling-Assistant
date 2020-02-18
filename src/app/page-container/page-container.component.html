@@ -1,0 +1,9 @@
+<div class="container-fluid {{cssClass}}">
+    <div class="row">
+      <div class="col header border-bottom d-flex justify-content-between">
+        <h1 class="mb-0">{{ title }}</h1>
+        <div *ngIf="competition">{{ competition.name }}</div>
+      </div>
+    </div>
+    <ng-content></ng-content>
+</div>

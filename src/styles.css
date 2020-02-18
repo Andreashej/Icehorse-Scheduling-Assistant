@@ -29,6 +29,10 @@ html,body {
     height: 100%;
 }
 
+router-outlet+* {
+    width: 100%;
+}
+
 ngb-popover-window {
     width: 274px;
 }
@@ -58,4 +62,97 @@ ngb-popover-window {
 
 .e-schedule .e-vertical-view .e-alternate-cells {
     border-bottom: none;
+}
+
+.e-quick-popup-wrapper .e-event-popup .e-popup-content, .e-quick-popup-wrapper .e-cell-popup .e-popup-content {
+    padding: 0;
+}
+
+.e-schedule .e-vertical-view .e-day-wrapper .e-appointment {
+    border-radius: 10px;
+    padding: 5px;
+}
+
+.e-header-cells {
+    /* height: 4rem!important; */
+}
+
+[aria-label*="T1"] {
+    background-color: #A9D978!important;
+    color: black!important;
+}
+
+[aria-label*="T2"] {
+    background-color: #B4FFB3!important;
+    color: black!important;
+}
+
+[aria-label*="T3"] {
+    background-color: #67A266!important;
+    color: black!important;
+}
+
+[aria-label*="T4"] {
+    background-color: #44985D!important;
+    color: white!important;
+}
+
+[aria-label*="T5"] {
+    background-color: #9DB688!important;
+    color: black!important;
+}
+
+[aria-label*="T8"] {
+    background-color: #AABCA6!important;
+    color: black!important;
+}
+
+[aria-label*="V1"], [aria-label*="GDB"] {
+    background-color: #7194C0!important;
+    color: black!important;
+}
+
+[aria-label*="V2"], [aria-label*="GDT"] {
+    background-color: #4B627F!important;
+    color: white!important;
+}
+
+[aria-label*="V3"], [aria-label*="GDC"] {
+    background-color: #96C4FF!important;
+    color: black!important;
+}
+
+[aria-label*="V5"], [aria-label*="GDY"] {
+    background-color: #263140!important;
+    color: white!important;
+}
+
+[aria-label*="F1"], [aria-label*="GDA"] {
+    background-color: #34495e!important;
+    color: white!important;
+}
+
+[aria-label*="F2"] {
+    background-color: #87B0E5!important;
+    color: black!important;
+}
+
+[aria-label*="PP1"] {
+    background-color: #E74C3C!important;
+    color: white!important;
+}
+
+[aria-label*="P2"] {
+    background-color: #C0392B!important;
+    color: white!important;
+}
+
+[aria-label*="P1"], [aria-label*="P3"] {
+    background-color: #A4392C!important;
+    color: white!important;
+}
+
+.custom {
+    background-color: #d6d8d9;
+    color: black;
 }

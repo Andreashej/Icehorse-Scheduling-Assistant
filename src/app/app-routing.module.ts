@@ -5,12 +5,14 @@ import { ScheduleContainerComponent } from './schedule-container/schedule-contai
 import { PrintHandlerComponent } from './print-handler/print-handler.component';
 import { SettingsComponent } from './settings/settings.component';
 import { LoginComponent } from './login/login.component';
+import { TestSetupComponent } from './test-setup/test-setup.component';
 
 const routes: Routes = [
-  {path: 'judges', component: JudgeEditorComponent},
+  // {path: 'judges', component: JudgeEditorComponent},
   {path: '', component: ScheduleContainerComponent},
-  {path: 'print', component: PrintHandlerComponent},
+  // {path: 'print', component: PrintHandlerComponent},
   {path: 'settings', component: SettingsComponent},
+  {path: 'tests', component: TestSetupComponent},
   {path: 'login', component: LoginComponent}
 ];
 

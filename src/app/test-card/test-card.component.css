@@ -1,27 +1,7 @@
-.test-card {
-    cursor: move;
-    overflow: hidden;
+.subject {
+    font-size: large;
 }
 
-.heats {
-    font-size: 14px;
-    display: block;
-}
-
-.time {
-    font-size: 24px;
-    text-align: right;
-}
-
-.drag-border {
-    display: none;
-}
-
-.heats .badge {
-    padding: 2px;
-    border-radius: 2px;
-}
-
-.capitalize {
-    text-transform: uppercase;
+.warning-container {
+    font-size: large;
 }

@@ -9,8 +9,9 @@ import { FormsModule } from '@angular/forms';
 import { Venue } from '../models/venue.model';
 import { NgbTypeahead, NgbHighlight } from '@ng-bootstrap/ng-bootstrap';
 import { Subject, Observable, merge } from 'rxjs';
-import { debounceTime, distinctUntilChanged, filter, map } from 'rxjs/operators';
+import { debounceTime, distinctUntilChanged, filter, map, switchMap } from 'rxjs/operators';
 import { Alert } from '../models/alert.model';
+import { ActivatedRoute, ParamMap } from '@angular/router';
 
 @Component({
   selector: 'app-settings',
@@ -22,7 +23,8 @@ export class SettingsComponent implements OnInit {
   constructor(private competitionHandler: CompetitionHandlerService,
               private competitionImporter: CompetitionImporterService,
               private auth: AuthService,
-              private updateHandler: GlobalUpdateService) { }
+              private updateHandler: GlobalUpdateService,
+              private route: ActivatedRoute) { }
   tests: Test[];           
   currentCompetition: Competition = null;
   addVenue;
@@ -61,9 +63,8 @@ export class SettingsComponent implements OnInit {
   ngOnInit() {
     this.competitionHandler.getCurrentCompetition().subscribe(
       competition => {
-        console.log(competition);
         this.currentCompetition = competition;
-        this.competitionHandler.getTests(this.currentCompetition.uri).subscribe(
+        this.competitionHandler.getTests(this.currentCompetition._links.self).subscribe(
           res => this.tests = res
         )
       }
@@ -74,26 +75,10 @@ export class SettingsComponent implements OnInit {
     )
   }
 
-  saveTest(testId, testcode, timeperheat, lr, rr) {
-    this.competitionImporter.saveTest(testId, testcode, lr, rr, timeperheat).subscribe(
-      () => {
-        this.competitionImporter.getAllTestData().subscribe(
-          data => this.tests = data
-        );
-      }
-    );
-  }
 
-  createTest(testcode, lr, rr, base) {
-    const test = new Test(testcode, base, lr, rr);
-    this.competitionHandler.createTest(this.currentCompetition.uri, test).subscribe(
-        res => this.tests.push(res),
-        err => console.log(err)
-    );
-  }
 
   deleteCompetition() {
-    this.competitionHandler.deleteCompetition(this.currentCompetition.uri).subscribe(
+    this.competitionHandler.deleteCompetition(this.currentCompetition._links.self).subscribe(
       (res) => {
         localStorage.setItem('currentCompetition', null);
       },
@@ -104,35 +89,17 @@ export class SettingsComponent implements OnInit {
   saveCompetition(startDate, endDate) {
     this.currentCompetition.startdate = new Date(startDate);
     this.currentCompetition.enddate = new Date(endDate);
-    this.competitionHandler.updateCompetition(this.currentCompetition.uri, this.currentCompetition).subscribe(
+    this.competitionHandler.updateCompetition(this.currentCompetition._links.self, this.currentCompetition).subscribe(
       res => this.currentCompetition = res,
       err => console.log(err)
     )
-  }
-
-  deleteTest(test: Test) {
-    this.competitionHandler.deleteTest(test.uri).subscribe(
-      (res) => {
-        console.log(res);
-        const i = this.tests.findIndex(t => t.uri === test.uri);
-        this.tests.splice(i, 1);
-      },
-      (err) => console.log(err)
-    )
-  }
-
-  updateTest(test: Test) {
-    this.competitionHandler.updateTest(test.uri, test).subscribe(
-      (res) => console.log(res),
-      (err) => console.log(err)
-    );
   }
 
   removeVenue(venue: Venue) {
     this.currentCompetition.venues.splice(this.currentCompetition.venues.indexOf(venue),1);
     let c = new Competition();
     c.venue = venue.name;
-    this.competitionHandler.updateCompetition(this.currentCompetition.uri, c).subscribe(
+    this.competitionHandler.updateCompetition(this.currentCompetition._links.self, c).subscribe(
       res => console.log('Success'),
       err => console.log(err)
     )
@@ -142,10 +109,8 @@ export class SettingsComponent implements OnInit {
     this.addVenue = '';
     let c = new Competition();
     c.venue = e.item.name;
-    
-    console.log(c);
 
-    this.competitionHandler.updateCompetition(this.currentCompetition.uri, c).subscribe(
+    this.competitionHandler.updateCompetition(this.currentCompetition._links.self, c).subscribe(
       res => {
         console.log('Success')
         this.currentCompetition.venues.push(e.item);
@@ -168,7 +133,7 @@ export class SettingsComponent implements OnInit {
               let c = new Competition();
               c.user = user.id;
       
-              this.competitionHandler.updateCompetition(this.currentCompetition.uri, c).subscribe(
+              this.competitionHandler.updateCompetition(this.currentCompetition._links.self, c).subscribe(
                 res => this.currentCompetition = res,
                 err => console.log(err)
               )

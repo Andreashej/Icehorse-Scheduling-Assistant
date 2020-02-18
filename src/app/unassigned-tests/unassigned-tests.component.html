@@ -1,27 +1,12 @@
 <div class="unassigned-container h-100">
-  <div class="tests">
-    <span class="title-area">
-      <h2>Unassigned tests
-        <!-- <i *ngIf="testdata" class="fa fa-refresh" [class.loading]="loading" id="refresh" (click)="reloadTestData()"></i> -->
-      </h2>
-    </span>
-    <div #droppable class="droppable-area">
-      <app-test-card *ngFor="let test of tests" [test]="test" (testDropped)="testDrop($event)" (testDragStart)="onDrag($event)"></app-test-card>
-    </div>
-    <div class="btn btn-primary menutoggle" (click)="toggleMenu()">
-      <i class="fa fa-caret-left" [class.fa-caret-left]="menuState === 'show'" [class.fa-caret-right]="menuState === 'hidden'" ></i>
-    </div>
-  </div>
-  <!-- <div class="btn-container">
-    <div class="input-group mb-3">
-      <input type="text" #customName class="form-control" placeholder="Name of custom entry" size="40">
-      <input type="number" #customDuration class="form-control" placeholder="Duration" step="5" min="0">
-      <div class="input-group-prepend">
-        <button class="btn btn-success" (click)="createCustomTest(customName.value, customDuration.value); customName.value = ''; customDuration.value = '';">
-          <i class="fa fa-plus"></i>
-        </button>
+  <div class="row">
+    <div class="col">
+      <div class="test-list card rounded-0">
+        <app-testlist></app-testlist>
       </div>
     </div>
-    <button *ngIf="testdata.length > 0" class="btn btn-success btn-large" (click)="generate()">Generate Schedule</button>
-  </div> -->
+  </div>
+  <div class="btn btn-primary menutoggle" (click)="toggleMenu()">
+    <i class="fa fa-caret-left" [class.fa-caret-left]="menuState === 'show'" [class.fa-caret-right]="menuState === 'hidden'" ></i>
+  </div>
 </div>

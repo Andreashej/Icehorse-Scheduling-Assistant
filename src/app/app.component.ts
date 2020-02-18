@@ -8,11 +8,8 @@ import { AuthService } from './auth.service';
 })
 export class AppComponent implements OnInit {
   public title = 'Icehorse Competition Assistant';
-  // activeCompetition = null
 
-  // constructor(private auth: AuthService) {}
 
   ngOnInit() {
-    // this.activeCompetition = localStorage.getItem('currentCompetition') ? localStorage.getItem('currentCompetition') : null;
   }
 }

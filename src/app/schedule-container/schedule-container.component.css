@@ -41,6 +41,10 @@ app-unassigned-tests {
 }
 
 .sidebar {
-    min-width: 400px;
-    max-width: 400px;
+    min-width: 300px;
+    max-width: 300px;
+}
+
+.page-content {
+    height: calc(100% - 4rem);
 }

@@ -15,8 +15,6 @@ import { Draggable, Droppable, DropEventArgs } from '@syncfusion/ej2-base';
 
 export class UnassignedTestsComponent implements OnInit {
 
-  @Output() testDropped = new EventEmitter();
-  @Output() testDragStart = new EventEmitter();
   @Output() menuToggle = new EventEmitter();
   tests: Test[];
 
@@ -25,50 +23,12 @@ export class UnassignedTestsComponent implements OnInit {
   constructor(private competitionHandler: CompetitionHandlerService) { }
 
   ngOnInit() {
-    const uri = localStorage.getItem('currentCompetition');
-    if( uri ) {
-      this.competitionHandler.getTests(uri, [{key: 'hasStarttime', value: 0}]).subscribe(
-        tests => this.tests = tests
-      );
-    }
-  }
 
-  testDrop(e) {
-    this.testDropped.emit(e);
-  }
-
-  onDrag(e) {
-    this.testDragStart.emit(e);
   }
 
   toggleMenu() {
     this.menuState = this.menuState === 'show' ? 'hidden' : 'show';
     this.menuToggle.emit(this.menuState);
   }
-
-  // reloadTestData(): void {
-  //   this.loading = true;
-  //   this.competitionImporter.refreshTestData().subscribe(
-  //     data => {
-  //       this.testdata = data;
-  //     },
-  //     () => {
-  //       console.log('Error when reloading');
-  //       this.loading = false;
-  //     },
-  //     () => {
-  //       this.loading = false;
-  //       this.updateService.doUpdate('');
-  //     }
-  //   );
-  // }
-
-  // createCustomTest(name, duration): void {
-  //   this.competitionImporter.create_custom(name, duration).subscribe(
-  //     () => console.log('Saved'),
-  //     () => console.log('Error when creating new'),
-  //     () => this.updateService.updateUnassigned()
-  //   );
-  // }
 
 }

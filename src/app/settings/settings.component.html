@@ -1,8 +1,7 @@
-<h1>Settings</h1>
-<div class="container">
-  <ngb-tabset>
-    <ngb-tab title="Competition settings">
-      <ng-template *ngIf="currentCompetition" ngbTabContent>
+<app-page-container title="Settings">
+  <div *ngIf="currentCompetition" class="row">
+    <div class="col">
+      <div class="page-section">
         <div class="row mt-2">
           <div class="col input-group">
             <div class="input-group-prepend">
@@ -54,96 +53,36 @@
             <button class="btn btn-danger ml-1" (click)="deleteCompetition();">Delete competition</button>
           </div>
         </div>
-    </ng-template>
-  </ngb-tab>
-  <ngb-tab title="Tests">
-      <ng-template ngbTabContent>
-        <table class="list-group">
-          <tr class="list-group-item row">
-            <th class="col-2">Testcode</th>
-            <th class="col-2">Base Test</th>
-            <th class="col-4" colspan="2">Number of riders</th>
-            <th class="col-1">Time</th>
-            <th class="col-3">Grouptime</th>
-          </tr>
-          <tr class="list-group-item row">
-              <td class="col-2">
-                <input class="form-control" #tc type="text" placeholder="Testcode">
-              </td>
-              <td class="col-2">
-                  <input class="form-control" #base type="text" placeholder="Base Test">
-              </td>
-              <td class="col-2">
-                <input class="form-control" #lr type="number" placeholder="Left Rein">
-              </td>
-              <td class="col-2">
-                <input class="form-control" #rr type="number" placeholder="Right Rein">
-              </td>
-              <td class="col-1">
-                  
-              </td>
-              <td class="col-3">
-                <button class="btn btn-success" type="submit" (click)="createTest(tc.value, lr.value, rr.value, base.value); tc.value = ''; lr.value=''; rr.value=''; base.value=''">Create</button>
-              </td>
-          </tr>
-          <tr *ngFor="let test of tests" class="list-group-item row">
-            <td class="col-2">
-              <input class="form-control" #tc [(ngModel)]="test.testcode" (change)="updateTest(test)">
-            </td>
-            <td class="col-2">
-                {{ test.origcode }}
-              </td>
-            <td class="col-2">
-              <input class="form-control" type="number" #lr [(ngModel)]="test.left_rein_participants" (change)="updateTest(test)">
-            </td>
-            <td class="col-2">
-              <input class="form-control" type="number" #rr [(ngModel)]="test.right_rein_participants" (change)="updateTest(test)">
-            </td>
-            <td class="col-1">
-              {{ test.getDuration() }}
-            </td>
-            <td class="col-2">
-                <input class="form-control" type="number" #grouptime [(ngModel)]="test.grouptime" (change)="updateTest(test)">
-            </td>
-            <td class="col-1">
-                <button (click)="deleteTest(test)" class="btn btn-danger"><i class="fa fa-trash"></i></button>
-            </td>
-          </tr>
-        </table>
-      </ng-template>
-    </ngb-tab>
-    <ngb-tab title="Users">
-      <ng-template ngbTabContent>
-        <div *ngIf="currentCompetition">
-          <h1>Manage users for competition</h1>
-          <div class="row mt-2">
-            <div class="col input-group">
-              <div class="input-group-prepend">
-                <label for="username" class="input-group-text">Username</label>
-              </div>
-              <input id="username" #username type="text" class="form-control" [(ngModel)]="newUserName">
+      </div>
+      <div class="page-section">
+        <h2>Users</h2>
+        <div class="row mt-2">
+          <div class="col input-group">
+            <div class="input-group-prepend">
+              <label for="username" class="input-group-text">Username</label>
             </div>
-          </div>
-          <div class="row mt-2">
-            <div class="col input-group">
-              <div class="input-group-prepend">
-                <label for="password" class="input-group-text">Password</label>
-              </div>
-              <input id="password" #password type="password" class="form-control" [(ngModel)]="newUserPass">
-            </div>
-          </div>
-          <div class="row mt-2">
-            <div class="col">
-              <button (click)="createUser()" class="btn btn-success">Create User</button>
-            </div>
-          </div>
-          <div class="row mt-2">
-            <div class="col">
-              <ngb-alert *ngIf="alert.message !== ''" [dismissible]="false" [type]="alert.type">{{alert.message}}</ngb-alert>
-            </div>
+            <input id="username" #username type="text" class="form-control" [(ngModel)]="newUserName">
           </div>
         </div>
-      </ng-template>
-    </ngb-tab>
-  </ngb-tabset>
-</div>
+        <div class="row mt-2">
+          <div class="col input-group">
+            <div class="input-group-prepend">
+              <label for="password" class="input-group-text">Password</label>
+            </div>
+            <input id="password" #password type="password" class="form-control" [(ngModel)]="newUserPass">
+          </div>
+        </div>
+        <div class="row mt-2">
+          <div class="col">
+            <button (click)="createUser()" class="btn btn-success">Create User</button>
+          </div>
+        </div>
+        <div class="row mt-2">
+          <div class="col">
+            <ngb-alert *ngIf="alert.message !== ''" [dismissible]="false" [type]="alert.type">{{alert.message}}</ngb-alert>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</app-page-container>

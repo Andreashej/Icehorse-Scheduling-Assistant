@@ -1,0 +1,26 @@
+<div class="list-group list-group-flush">
+    <a *ngFor="let test of tests" class="list-group-item" [class.list-group-item-action]="test.blocks.length > 0 && false">
+    <div class="d-flex w-100 justify-content-between">
+      <div class="d-inline-flex">
+        <h5 class="mb-1">{{test.testcode}}</h5>
+      </div>
+      <span><span *ngIf="test.getHours() > 0">{{ test.getHours() }}h </span><span>{{ test.getMinutes() }}m</span></span>
+    </div>
+    <div class="d-flex w-100 justify-content-between">
+        <div>
+            <span>{{ test.getGroups() }} groups</span>
+            <div class="d-inline-block">
+                <span class="badge badge-pill ml-1" [class.badge-success]="test.getFreePlacesLeft() > 0" [class.badge-danger]="test.getFreePlacesLeft() < 1">+{{test.getFreePlacesLeft()}}L</span>
+                <span class="badge badge-pill ml-1" [class.badge-success]="test.getFreePlacesRight() > 0" [class.badge-danger]="test.getFreePlacesRight() < 1">+{{test.getFreePlacesRight()}}R</span>
+            </div>
+        </div>
+        <div class="btn-group btn-group-sm">
+            <button class="btn" [ngClass]="test.allowAFIN ? 'btn-success' : 'btn-danger'" (click)="toggleFinal(test, 'AFIN')">AFIN</button>
+            <button class="btn" [ngClass]="test.allowBFIN ? 'btn-success' : 'btn-danger'" (click)="toggleFinal(test, 'BFIN')">BFIN</button>
+        </div>
+    </div>
+    <small *ngIf="test.unscheduled_groups > 0" class="text-muted">{{test.unscheduled_groups}} unscheduled groups</small>
+    <small *ngIf="test.unscheduled_groups === 0" class="text-muted">All groups scheduled</small>
+    <small *ngIf="test.unscheduled_groups < 0" class="text-muted">{{test.unscheduled_groups * -1}} extra groups</small>
+  </a>
+</div>

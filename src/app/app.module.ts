@@ -29,6 +29,12 @@ import { AuthInterceptor } from './auth-interceptor';
 import { ScheduleModule } from '@syncfusion/ej2-angular-schedule';
 import { TreeViewModule } from '@syncfusion/ej2-angular-navigations';
 import { PrintContainerComponent } from './print-container/print-container.component';
+import { TestlistComponent } from './testlist/testlist.component';
+import { ScheduleBlockListComponent } from './schedule-block-list/schedule-block-list.component';
+import { MenubarComponent } from './menubar/menubar.component';
+import { TestSetupComponent } from './test-setup/test-setup.component';
+import { PageContainerComponent } from './page-container/page-container.component';
+import { CompetitionChangerComponent } from './competition-changer/competition-changer.component';
 
 @NgModule({
   declarations: [
@@ -41,10 +47,16 @@ import { PrintContainerComponent } from './print-container/print-container.compo
     TestCardScheduleComponent,
     JudgeEditorComponent,
     ScheduleContainerComponent,
-    PrintHandlerComponent,
+    // PrintHandlerComponent,
     SettingsComponent,
     LoginComponent,
-    PrintContainerComponent
+    TestlistComponent,
+    ScheduleBlockListComponent,
+    MenubarComponent,
+    TestSetupComponent,
+    PageContainerComponent,
+    CompetitionChangerComponent,
+    // PrintContainerComponent
   ],
   imports: [
     BrowserModule,
