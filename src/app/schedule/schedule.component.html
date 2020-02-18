@@ -9,8 +9,8 @@
   [allowDragAndDrop]="true"
   [group]="group"
   [allowResizing]="true"
-  [currentView]="Day"
-  [timezone]="UTC"
+  [currentView]="'Day'"
+  [timezone]="'UTC'"
   [workHours]="workHours"
   [showHeaderBar]="false"
   
@@ -20,7 +20,6 @@
   (resizeStart)="onResizeStart($event)"
   (resizeStop)="onResizeStop($event)"
   (resizing)="onResize($event)"
-  (testClick)="createTest($event)"
 >
 
   <e-views>

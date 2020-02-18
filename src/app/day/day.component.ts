@@ -20,39 +20,39 @@ export class DayComponent implements OnInit {
   @Input() competition: Competition;
   @Input() tests: Test[];
 
-//   scheduledTests = [];
-//   settings = {
-//     'days': [],
-//     'hours': 0,
-//     'name': ''
-//   };
-//   hours = [];
-//   blocks = {};
-//   saved;
-//   updates = false;
-//   subscription: Subscription;
-//   trackChangeSubscription: Subscription;
-//   allBlocks: Block[] = [];
+  // scheduledTests = [];
+  // settings = {
+  //   'days': [],
+  //   'hours': 0,
+  //   'name': ''
+  // };
+  // hours = [];
+  // blocks = {};
+  // saved;
+  // updates = false;
+  // subscription: Subscription;
+  // trackChangeSubscription: Subscription;
+  // allBlocks: Block[] = [];
 
-//   busyUntil = {};
+  // busyUntil = {};
 
-//   // onDropTest(test: any, elt) {
-//   //   const blockSize = Math.ceil((test.dragData.prel_time - 0.9) / 5);
-//   //   this.saveTest(
-//   //     test.dragData.testcode,
-//   //     test.dragData.phase,
-//   //     test.dragData.section,
-//   //     new Date(this.date),
-//   //     this.blocks.indexOf(elt),
-//   //     elt.blocktime.getTime(),
-//   //     new Date(elt.blocktime.getTime() + test.dragData.prel_time * 60000).getTime());
+  // onDropTest(test: any, elt) {
+  //   const blockSize = Math.ceil((test.dragData.prel_time - 0.9) / 5);
+  //   this.saveTest(
+  //     test.dragData.testcode,
+  //     test.dragData.phase,
+  //     test.dragData.section,
+  //     new Date(this.date),
+  //     this.blocks.indexOf(elt),
+  //     elt.blocktime.getTime(),
+  //     new Date(elt.blocktime.getTime() + test.dragData.prel_time * 60000).getTime());
 
-//   //   elt.rowspan = blockSize;
-//   //   elt.testcode = test.dragData.testcode;
-//   //   elt.content = test.dragData;
-//   //   elt.content.state = new Date(this.date);
-//   //   elt.droppable = false;
-//   // }
+  //   elt.rowspan = blockSize;
+  //   elt.testcode = test.dragData.testcode;
+  //   elt.content = test.dragData;
+  //   elt.content.state = new Date(this.date);
+  //   elt.droppable = false;
+  // }
 
   constructor(private competitionHandler: CompetitionHandlerService) { }
 

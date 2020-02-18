@@ -47,7 +47,7 @@ import { CompetitionChangerComponent } from './competition-changer/competition-c
     TestCardScheduleComponent,
     JudgeEditorComponent,
     ScheduleContainerComponent,
-    // PrintHandlerComponent,
+    PrintHandlerComponent,
     SettingsComponent,
     LoginComponent,
     TestlistComponent,
@@ -56,7 +56,7 @@ import { CompetitionChangerComponent } from './competition-changer/competition-c
     TestSetupComponent,
     PageContainerComponent,
     CompetitionChangerComponent,
-    // PrintContainerComponent
+    PrintContainerComponent
   ],
   imports: [
     BrowserModule,
