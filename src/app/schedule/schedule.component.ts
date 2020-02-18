@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, Input } from '@angular/core';
+import { Component, OnInit, ViewChild, Input, AfterViewInit } from '@angular/core';
 import { CompetitionHandlerService } from '../competition.handler.service';
 import { DayService, DragAndDropService, WeekService, ResizeService, EventSettingsModel, TimeScaleModel, GroupModel, CellClickEventArgs, ScheduleComponent as Scheduler, ResizeEventArgs, DragEventArgs, WorkHoursModel } from '@syncfusion/ej2-angular-schedule';
 import { Competition } from '../models/competition.model';
@@ -12,7 +12,7 @@ import { Internationalization } from '@syncfusion/ej2-base';
   templateUrl: './schedule.component.html',
   styleUrls: ['./schedule.component.css']
 })
-export class ScheduleComponent implements OnInit {
+export class ScheduleComponent implements OnInit, AfterViewInit {
   @Input() competition: Competition;
   menuState = 'show';
 
@@ -53,6 +53,9 @@ export class ScheduleComponent implements OnInit {
         resources: ['Venues'],
       };
     }
+  }
+
+  ngAfterViewInit() {
     this.scheduleObj.timezone = 'UTC';
   }
 
