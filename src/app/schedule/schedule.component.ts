@@ -16,6 +16,8 @@ export class ScheduleComponent implements OnInit, AfterViewInit {
   @Input() competition: Competition;
   menuState = 'show';
 
+  UTC;
+
   @ViewChild('scheduleObj', { static: false })
   public scheduleObj: Scheduler;
 
@@ -56,7 +58,7 @@ export class ScheduleComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit() {
-    this.scheduleObj.timezone = 'UTC';
+    // this.scheduleObj.timezone = 'UTC';
   }
 
   onCreate() {

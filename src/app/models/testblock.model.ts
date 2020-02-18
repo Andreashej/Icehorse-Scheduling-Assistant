@@ -1,6 +1,7 @@
 import { Deserializeable } from './deserializeable.model';
 import { Test } from './test.model';
 import { Venue } from './venue.model';
+import { Timezone } from '@syncfusion/ej2-schedule';
 
 export class TestBlock implements Deserializeable {
     static COLOURS = {
@@ -76,7 +77,7 @@ export class TestBlock implements Deserializeable {
         // this.venue = new Venue().deserialize(input.venue);
 
         if (!tz) {
-            this.starttime = new Date(input.starttime + "Z");
+            this.starttime = new Date(input.starttime + 'Z');
         }
 
         if(!input.label) {

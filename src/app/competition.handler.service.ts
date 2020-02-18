@@ -29,7 +29,6 @@ export class CompetitionHandlerService {
   getCurrentCompetition(): Observable<Competition> {
     if (localStorage.getItem("currentCompetition")) {
       if(this.currentCompetition) {
-        console.log(this.currentCompetition);
         return of(this.currentCompetition);
       }
       return this.getCompetition(localStorage.getItem('currentCompetition'));
