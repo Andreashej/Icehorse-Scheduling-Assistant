@@ -1,5 +1,5 @@
 /* You can add global styles to this file, and also import other style files */
-@import url('https://fonts.googleapis.com/css?family=Open+Sans');
+@import url('https://fonts.googleapis.com/css?family=Open+Sans:400,800&display=swap');
 
 @import '../node_modules/@syncfusion/ej2-base/styles/material.css';
 @import '../node_modules/@syncfusion/ej2-buttons/styles/material.css';
@@ -155,4 +155,12 @@ ngb-popover-window {
 .custom {
     background-color: #d6d8d9;
     color: black;
+}
+
+.btn-success, .background-success {
+    background-color: #3EB650!important;
+}
+
+.border-success {
+    border-color: #3EB650!important;
 }

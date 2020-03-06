@@ -38,7 +38,7 @@ h2 {
 }
 
 .drag-over-border {
-    background-color: #312783;
+      border-left-color: #312783;
 }
 
 .venueName {
@@ -63,4 +63,69 @@ app-test-card-schedule {
     .grid tr {
         height: 6.45px;
     }
+}
+
+.list-group-item {
+    border-left-width: 1rem;
+    border-left-style: solid;
+}
+
+.T1 {
+      border-left-color: #A9D978!important;
+}
+
+.T2 {
+      border-left-color: #B4FFB3!important;
+}
+
+.T3 {
+      border-left-color: #67A266!important;
+}
+
+.T4 {
+      border-left-color: #44985D!important;
+}
+
+.T5 {
+      border-left-color: #9DB688!important;
+}
+
+.T8 {
+      border-left-color: #AABCA6!important;
+}
+
+.V1, .GDB {
+      border-left-color: #7194C0!important;
+}
+
+.V2, .GDT {
+      border-left-color: #4B627F!important;
+}
+
+.V3, .GDC {
+      border-left-color: #96C4FF!important;
+}
+
+.V5, .GDY {
+      border-left-color: #263140!important;
+}
+
+.F1, .GDA {
+      border-left-color: #34495e!important;
+}
+
+.F2 {
+      border-left-color: #87B0E5!important;
+}
+
+.PP1 {
+      border-left-color: #E74C3C!important;
+}
+
+.P2 {
+      border-left-color: #C0392B!important;
+}
+
+.P1, .P3 {
+      border-left-color: #A4392C!important;
 }

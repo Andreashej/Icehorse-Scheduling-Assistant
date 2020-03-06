@@ -1,5 +1,5 @@
 .print {
-    display: none;
+    /* display: none; */
     float: none;
 }
 
@@ -33,6 +33,11 @@
 
     .judge {
         page-break-after: always;
+    }
+
+    .day {
+        page-break-after: always;
+        height: 100%;
     }
 }
 

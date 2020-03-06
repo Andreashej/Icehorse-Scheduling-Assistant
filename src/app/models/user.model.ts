@@ -7,6 +7,7 @@ export class User implements Deserializeable {
     email: string;
     uri: string;
     competitions: Competition[];
+    _links: any;
 
     deserialize(input: any) {
         Object.assign(this, input);

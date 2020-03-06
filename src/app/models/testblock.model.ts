@@ -77,7 +77,7 @@ export class TestBlock implements Deserializeable {
         // this.venue = new Venue().deserialize(input.venue);
 
         if (!tz) {
-            this.starttime = new Date(input.starttime + 'Z');
+            this.starttime = new Date(input.starttime);
         }
 
         if(!input.label) {

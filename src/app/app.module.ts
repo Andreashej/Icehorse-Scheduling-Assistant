@@ -2,7 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { NgDragDropModule } from 'ng-drag-drop';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { AppComponent } from './app.component';
@@ -35,6 +35,8 @@ import { MenubarComponent } from './menubar/menubar.component';
 import { TestSetupComponent } from './test-setup/test-setup.component';
 import { PageContainerComponent } from './page-container/page-container.component';
 import { CompetitionChangerComponent } from './competition-changer/competition-changer.component';
+import { UserEditComponent } from './user-edit/user-edit.component';
+import { RegisterComponent } from './register/register.component';
 
 @NgModule({
   declarations: [
@@ -56,7 +58,9 @@ import { CompetitionChangerComponent } from './competition-changer/competition-c
     TestSetupComponent,
     PageContainerComponent,
     CompetitionChangerComponent,
-    PrintContainerComponent
+    PrintContainerComponent,
+    UserEditComponent,
+    RegisterComponent
   ],
   imports: [
     BrowserModule,
@@ -69,6 +73,7 @@ import { CompetitionChangerComponent } from './competition-changer/competition-c
     ScheduleModule,
     TreeViewModule,
     BrowserAnimationsModule,
+    ReactiveFormsModule,
   ],
   providers: [
     CompetitionImporterService,

@@ -4,6 +4,7 @@ import { CompetitionHandlerService } from '../competition.handler.service';
 import { Competition } from '../models/competition.model';
 import { TestBlock } from '../models/testblock.model';
 import { trigger, state, transition, animate, style } from '@angular/animations';
+import { GlobalUpdateService } from '../global-update.service';
 
 @Component({
   selector: 'app-schedule-container',
@@ -27,7 +28,10 @@ export class ScheduleContainerComponent implements OnInit {
 
   loading = true;
 
-  constructor(private competitionHandler: CompetitionHandlerService) { }
+  constructor(
+    private competitionHandler: CompetitionHandlerService,
+    private updater: GlobalUpdateService
+  ) { }
 
   ngOnInit() {
     this.competitionHandler.getCurrentCompetition().subscribe(
@@ -37,7 +41,6 @@ export class ScheduleContainerComponent implements OnInit {
       },
       err => console.log(err)
     );
-
   }
 
   toggleMenu(e) {

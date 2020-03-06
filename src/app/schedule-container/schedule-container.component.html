@@ -1,9 +1,7 @@
-<app-page-container title="Schedule" [cssClass]="'h-100'">
-    <div *ngIf="!currentCompetition && !loading" class="row alert-container py-4">
-      <ngb-alert [dismissible]="false" type="danger">Please select a competition before proceeding.</ngb-alert>
-    </div>
-    <div *ngIf="currentCompetition" class="row page-content">
-      <app-unassigned-tests [@openClose]="menuState" class="col-3 h-100 p-0 sidebar" (menuToggle)="toggleMenu($event)"></app-unassigned-tests>
-      <app-schedule class="col h-100" [competition]="currentCompetition"></app-schedule>
-    </div>
-</app-page-container>
+<div *ngIf="!currentCompetition && !loading" class="row alert-container py-4">
+  <ngb-alert [dismissible]="false" type="danger">Please select a competition before proceeding.</ngb-alert>
+</div>
+<div *ngIf="currentCompetition" class="row page-content">
+  <app-unassigned-tests [@openClose]="menuState" class="col-3 h-100 p-0 sidebar" (menuToggle)="toggleMenu($event)"></app-unassigned-tests>
+  <app-schedule class="col h-100" [competition]="currentCompetition"></app-schedule>
+</div>

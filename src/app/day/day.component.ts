@@ -8,6 +8,7 @@ import { Subscription } from 'rxjs';
 import { Competition } from '../models/competition.model';
 import { Test } from '../models/test.model';
 import { Venue } from '../models/venue.model';
+import { TestBlock } from '../models/testblock.model';
 
 @Component({
   selector: 'app-day',
@@ -18,7 +19,7 @@ export class DayComponent implements OnInit {
   @Input() date;
   @Input() printTemplate;
   @Input() competition: Competition;
-  @Input() tests: Test[];
+  @Input() testblocks: TestBlock[];
 
   // scheduledTests = [];
   // settings = {

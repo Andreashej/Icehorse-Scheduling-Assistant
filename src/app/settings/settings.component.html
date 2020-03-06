@@ -1,88 +1,86 @@
-<app-page-container title="Settings">
-  <div *ngIf="currentCompetition" class="row">
-    <div class="col">
-      <div class="page-section">
-        <div class="row mt-2">
-          <div class="col input-group">
-            <div class="input-group-prepend">
-              <label for="competitionName" class="input-group-text">Competition name</label>
-            </div>
-            <input id="competitionName" #competitionName type="text" class="form-control" [(ngModel)]="currentCompetition.name">
+<div *ngIf="currentCompetition" class="row">
+  <div class="col">
+    <div class="page-section">
+      <div class="row mt-2">
+        <div class="col input-group">
+          <div class="input-group-prepend">
+            <label for="competitionName" class="input-group-text">Competition name</label>
+          </div>
+          <input id="competitionName" #competitionName type="text" class="form-control" [(ngModel)]="currentCompetition.name">
+        </div>
+      </div>
+      <div class="row mt-2">
+        <div class="col input-group">
+          <div class="input-group-prepend">
+            <label class="input-group-text" for="startDate">Start Date</label>
+          </div>
+          <input #startDate id="startDate" class="form-control" placeholder="yyyy-mm-dd" name="dp" value="{{ currentCompetition.getStartDate() }}" ngbDatepicker #dpStart="ngbDatepicker">
+          <div class="input-group-append">
+            <button class="btn btn-outline-secondary fa fa-calendar" (click)="dpStart.toggle()" type="button"></button>
           </div>
         </div>
-        <div class="row mt-2">
-          <div class="col input-group">
-            <div class="input-group-prepend">
-              <label class="input-group-text" for="startDate">Start Date</label>
-            </div>
-            <input #startDate id="startDate" class="form-control" placeholder="yyyy-mm-dd" name="dp" value="{{ currentCompetition.getStartDate() }}" ngbDatepicker #dpStart="ngbDatepicker">
-            <div class="input-group-append">
-              <button class="btn btn-outline-secondary fa fa-calendar" (click)="dpStart.toggle()" type="button"></button>
-            </div>
-          </div>
 
-          <div class="col input-group">
-            <div class="input-group-prepend">
-              <label class="input-group-text" for="endDate">End Date</label>
-            </div>
-            <input #endDate id="endDate" class="form-control" placeholder="yyyy-mm-dd" name="dp" value="{{ currentCompetition.getEndDate() }}" ngbDatepicker #dpEnd="ngbDatepicker">
-            <div class="input-group-append">
-              <button class="btn btn-outline-secondary fa fa-calendar" (click)="dpEnd.toggle()" type="button"></button>
-            </div>
+        <div class="col input-group">
+          <div class="input-group-prepend">
+            <label class="input-group-text" for="endDate">End Date</label>
           </div>
-        </div>
-        <div class="row mt-2">
-          <div class="col input-group">
-            <div class="input-group-prepend">
-              <label for="" class="input-group-text">Tracks / Venues</label>
-            </div>
-            <input id="venues" type="text" class="form-control" [(ngModel)]="addVenue" [ngbTypeahead]="venueSearch" (selectItem)="venueChange($event)" (focus)="focus$.next($event.target.value)" (click)="click$.next($event.target.value)" #venues="ngbTypeahead" [resultTemplate]="searchTemplate" [inputFormatter]="formatter">
-            <ng-template #searchTemplate let-v="result" let-t="term">
-              <ngb-highlight [result]="v.name" [term]="t"></ngb-highlight>
-            </ng-template>
-          </div>
-        </div>
-        <div class="row mt-2">
-            <div class="competitionVenues col">
-              <span class="venue badge badge-info mr-1" *ngFor="let venue of currentCompetition.venues">{{ venue.name }} <a class="fa fa-trash" (click)="removeVenue(venue)"></a></span>
-            </div>
-        </div>
-        <div class="row mt-2">
-          <div class="col">
-            <button class="btn btn-success" (click)="saveCompetition(startDate.value, endDate.value);">Save</button>
-            <button class="btn btn-danger ml-1" (click)="deleteCompetition();">Delete competition</button>
+          <input #endDate id="endDate" class="form-control" placeholder="yyyy-mm-dd" name="dp" value="{{ currentCompetition.getEndDate() }}" ngbDatepicker #dpEnd="ngbDatepicker">
+          <div class="input-group-append">
+            <button class="btn btn-outline-secondary fa fa-calendar" (click)="dpEnd.toggle()" type="button"></button>
           </div>
         </div>
       </div>
-      <div class="page-section">
-        <h2>Users</h2>
-        <div class="row mt-2">
-          <div class="col input-group">
-            <div class="input-group-prepend">
-              <label for="username" class="input-group-text">Username</label>
-            </div>
-            <input id="username" #username type="text" class="form-control" [(ngModel)]="newUserName">
+      <div class="row mt-2">
+        <div class="col input-group">
+          <div class="input-group-prepend">
+            <label for="" class="input-group-text">Tracks / Venues</label>
           </div>
+          <input id="venues" type="text" class="form-control" [(ngModel)]="addVenue" [ngbTypeahead]="venueSearch" (selectItem)="venueChange($event)" (focus)="focus$.next($event.target.value)" (click)="click$.next($event.target.value)" #venues="ngbTypeahead" [resultTemplate]="searchTemplate" [inputFormatter]="formatter">
+          <ng-template #searchTemplate let-v="result" let-t="term">
+            <ngb-highlight [result]="v.name" [term]="t"></ngb-highlight>
+          </ng-template>
         </div>
-        <div class="row mt-2">
-          <div class="col input-group">
-            <div class="input-group-prepend">
-              <label for="password" class="input-group-text">Password</label>
-            </div>
-            <input id="password" #password type="password" class="form-control" [(ngModel)]="newUserPass">
+      </div>
+      <div class="row mt-2">
+          <div class="competitionVenues col">
+            <span class="venue badge badge-info mr-1" *ngFor="let venue of currentCompetition.venues">{{ venue.name }} <a class="fa fa-trash" (click)="removeVenue(venue)"></a></span>
           </div>
+      </div>
+      <div class="row mt-2">
+        <div class="col">
+          <button class="btn btn-success" (click)="saveCompetition(startDate.value, endDate.value);">Save</button>
+          <button class="btn btn-danger ml-1" (click)="deleteCompetition();">Delete competition</button>
         </div>
-        <div class="row mt-2">
-          <div class="col">
-            <button (click)="createUser()" class="btn btn-success">Create User</button>
+      </div>
+    </div>
+    <div class="page-section">
+      <h2>Users</h2>
+      <div class="row mt-2">
+        <div class="col input-group">
+          <div class="input-group-prepend">
+            <label for="username" class="input-group-text">Username</label>
           </div>
+          <input id="username" #username type="text" class="form-control" [(ngModel)]="newUserName">
         </div>
-        <div class="row mt-2">
-          <div class="col">
-            <ngb-alert *ngIf="alert.message !== ''" [dismissible]="false" [type]="alert.type">{{alert.message}}</ngb-alert>
+      </div>
+      <div class="row mt-2">
+        <div class="col input-group">
+          <div class="input-group-prepend">
+            <label for="password" class="input-group-text">Password</label>
           </div>
+          <input id="password" #password type="password" class="form-control" [(ngModel)]="newUserPass">
+        </div>
+      </div>
+      <div class="row mt-2">
+        <div class="col">
+          <button (click)="createUser()" class="btn btn-success">Create User</button>
+        </div>
+      </div>
+      <div class="row mt-2">
+        <div class="col">
+          <ngb-alert *ngIf="alert.message !== ''" [dismissible]="false" [type]="alert.type">{{alert.message}}</ngb-alert>
         </div>
       </div>
     </div>
   </div>
-</app-page-container>
+</div>

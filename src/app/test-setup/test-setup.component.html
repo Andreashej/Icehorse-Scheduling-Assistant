@@ -1,58 +1,56 @@
-<app-page-container title="Test setup">
-    <div class="row">
-        <div class="col px-0">
-            <table class="table">
-                <tr>
-                  <th>Testcode</th>
-                  <th >Base Test</th>
-                  <th colspan="2">Number of riders</th>
-                  <th>Time</th>
-                  <th colspan="2">Grouptime</th>
-                </tr>
-                <tr>
-                    <td>
-                      <input class="form-control" #tc type="text" placeholder="Testcode">
-                    </td>
-                    <td>
-                        <input class="form-control" #base type="text" placeholder="Base Test">
-                    </td>
-                    <td>
-                      <input class="form-control" #lr type="number" placeholder="Left Rein">
-                    </td>
-                    <td>
-                      <input class="form-control" #rr type="number" placeholder="Right Rein">
-                    </td>
-                    <td>
-                        
-                    </td>
-                    <td colspan="2">
-                      <button class="btn btn-success" type="submit" (click)="createTest(tc.value, lr.value, rr.value, base.value); tc.value = ''; lr.value=''; rr.value=''; base.value=''">Create</button>
-                    </td>
-                </tr>
-                <tr *ngFor="let test of tests">
-                  <td>
-                    <input class="form-control" #tc [(ngModel)]="test.testcode" (change)="updateTest(test)">
-                  </td>
-                  <td>
-                      {{ test.origcode }}
-                    </td>
-                  <td>
-                    <input class="form-control" type="number" #lr [(ngModel)]="test.left_rein_participants" (change)="updateTest(test)">
-                  </td>
-                  <td>
-                    <input class="form-control" type="number" #rr [(ngModel)]="test.right_rein_participants" (change)="updateTest(test)">
-                  </td>
-                  <td>
-                    {{ test.getDuration() }}
-                  </td>
-                  <td >
-                      <input class="form-control" type="number" #grouptime [(ngModel)]="test.grouptime" (change)="updateTest(test)">
-                  </td>
-                  <td>
-                      <button (click)="deleteTest(test)" class="btn btn-danger"><i class="fa fa-trash"></i></button>
-                  </td>
-                </tr>
-              </table>
-        </div>
+<div class="row">
+    <div class="col px-0">
+        <table class="table">
+            <tr>
+              <th>Testcode</th>
+              <th >Base Test</th>
+              <th colspan="2">Number of riders</th>
+              <th>Time</th>
+              <th colspan="2">Grouptime</th>
+            </tr>
+            <tr>
+                <td>
+                  <input class="form-control" #tc type="text" placeholder="Testcode">
+                </td>
+                <td>
+                    <input class="form-control" #base type="text" placeholder="Base Test">
+                </td>
+                <td>
+                  <input class="form-control" #lr type="number" placeholder="Left Rein">
+                </td>
+                <td>
+                  <input class="form-control" #rr type="number" placeholder="Right Rein">
+                </td>
+                <td>
+                    
+                </td>
+                <td colspan="2">
+                  <button class="btn btn-success" type="submit" (click)="createTest(tc.value, lr.value, rr.value, base.value); tc.value = ''; lr.value=''; rr.value=''; base.value=''">Create</button>
+                </td>
+            </tr>
+            <tr *ngFor="let test of tests">
+              <td>
+                <input class="form-control" #tc [(ngModel)]="test.testcode" (change)="updateTest(test)">
+              </td>
+              <td>
+                  {{ test.origcode }}
+                </td>
+              <td>
+                <input class="form-control" type="number" #lr [(ngModel)]="test.left_rein_participants" (change)="updateTest(test)">
+              </td>
+              <td>
+                <input class="form-control" type="number" #rr [(ngModel)]="test.right_rein_participants" (change)="updateTest(test)">
+              </td>
+              <td>
+                {{ test.getDuration() }}
+              </td>
+              <td >
+                  <input class="form-control" type="number" #grouptime [(ngModel)]="test.grouptime" (change)="updateTest(test)">
+              </td>
+              <td>
+                  <button (click)="deleteTest(test)" class="btn btn-danger"><i class="fa fa-trash"></i></button>
+              </td>
+            </tr>
+          </table>
     </div>
-</app-page-container>
+</div>

@@ -1,4 +1,8 @@
-<div class="app-container h-100">
-    <app-menubar></app-menubar>
-    <router-outlet></router-outlet>
-</div>
+<app-page-container class="app-container h-100" [title]="header" [cssClass]="'h-100'">
+    <div class="row content" [class.h-100]="hideMenu">
+        <app-menubar *ngIf="!hideMenu" (titleUpdate)="updateTitle($event)"></app-menubar>
+        <div class="col h-100" [class.bg-image]="hideMenu">
+            <router-outlet></router-outlet>
+        </div>
+    </div>
+</app-page-container>

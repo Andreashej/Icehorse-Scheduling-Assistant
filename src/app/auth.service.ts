@@ -6,7 +6,7 @@ import * as moment from "moment";
 import { Router } from '@angular/router';
 import { environment } from '../environments/environment';
 import { User } from './models/user.model';
-import { Observable } from 'rxjs';
+import { Observable, BehaviorSubject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -15,6 +15,8 @@ import { Observable } from 'rxjs';
 export class AuthService {
 
   serverUrl = environment.apiEndpoint;
+
+  loggedOut = new BehaviorSubject(false);
 
   constructor(private http: HttpClient,
               private router: Router) { }
@@ -26,8 +28,14 @@ export class AuthService {
     )
   }
 
-  createUser(username: string, password: string): Observable<User> {
+  createUser(username: string, password: string, email?: string): Observable<User> {
     return this.http.post<any>(`${this.serverUrl}/api/registration`, {username, password}).pipe(
+      map(res => new User().deserialize(res.response))
+    );
+  }
+
+  updateUser(user: User, values: any): Observable<User> {
+    return this.http.patch<any>(`${this.serverUrl}${user._links.self}`, values).pipe(
       map(res => new User().deserialize(res.response))
     );
   }
@@ -44,6 +52,7 @@ export class AuthService {
   }
 
   logout() {
+    this.loggedOut.next(true);
     localStorage.removeItem("currentCompetition");
     this.logoutAccess().subscribe(
       () => this.logoutRefresh().subscribe(

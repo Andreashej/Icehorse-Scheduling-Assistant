@@ -1,9 +1,25 @@
 <div class="container-fluid {{cssClass}}">
-    <div class="row">
+    <div *ngIf="!hideControls" class="header row">
+      <div class="col logo-container">
+        <i class="fa fa-compass logo"></i>
+      </div>
       <div class="col header border-bottom d-flex justify-content-between">
         <h1 class="mb-0">{{ title }}</h1>
-        <div *ngIf="competition">{{ competition.name }}</div>
+        <div class="header-right">
+          <div *ngIf="isLoggedIn" class="buttons">
+            <button *ngIf="currentUser" class="btn btn-sm btn-light mr-1"  ngbTooltip="User Settings" (click)="openVerticallyCentered(userModal)"><i class="fa fa-user"></i> {{currentUser.username}}</button>
+            <button class="btn btn-sm btn-light mr-1" ngbTooltip="Change competition" (click)="openVerticallyCentered(competitionModal)"><i class="fa fa-home"></i><span *ngIf="competition"> {{ competition.name }}</span><span *ngIf="!competition" class="text-muted"> No competition selected</span></button>
+          </div>
+        </div>
       </div>
     </div>
     <ng-content></ng-content>
 </div>
+
+<ng-template #competitionModal let-modalClose="close" let-modalDismiss="dismiss">
+  <app-competition-changer *ngIf="currentUser" [competitions]="currentUser.competitions" [activeCompetitionUri]="activeCompetitionUri" (close)="modalDismiss($event)" (create)="competitionCreated($event)"></app-competition-changer>
+</ng-template>
+
+<ng-template #userModal let-modalClose="close" let-modalDismiss="dismiss">
+  <app-user-edit *ngIf="currentUser" [user]="currentUser" (close)="modalDismiss($event)" (userUpdate)="updateUser($event)"></app-user-edit>
+</ng-template>

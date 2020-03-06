@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, Output, EventEmitter, Input } from '@angular/core';
 import { AuthService } from '../auth.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { CompetitionHandlerService } from '../competition.handler.service';
@@ -12,59 +12,48 @@ import { Competition } from '../models/competition.model';
   styleUrls: ['./menubar.component.css']
 })
 export class MenubarComponent implements OnInit {
-  isLoggedIn: boolean;
-  currentUser: User;
-  activeCompetitionUri: string;
+  @Input() isLoggedIn: boolean;
 
-  @ViewChild("modal", null) modal;
+  menuItems: Array<any> = [
+    {
+      name: "Schedule",
+      icon: "calendar",
+      link: "/",
+      options: {exact: true}
+    },
+    {
+      name: "Print",
+      icon: "print",
+      link: "/print",
+      options: {exact: false}
+    },
+    {
+      name: "Test setup",
+      icon: "list",
+      link: "/tests",
+      options: {exact: false}
+    },
+    {
+      name: "Setup",
+      icon: "cog",
+      link: "/settings",
+      options: {exact: false}
+    }
+  ]
 
   constructor(
-    private auth: AuthService,
-    private modalService: NgbModal,
-    private competitionHandler: CompetitionHandlerService,
-    private router: Router
+    public auth: AuthService,
   ) { }
 
   ngOnInit() {
-    this.isLoggedIn = this.auth.isLoggedIn();
-
-    this.competitionHandler.getCurrentUser().subscribe(
-      user => {
-        this.currentUser = user;
-        this.setCurrentCompetition();
-      },
-      err => {
-        this.router.navigateByUrl('/login');
-      }
-    );
+    setTimeout(
+      () => {
+        this.isLoggedIn = this.auth.isLoggedIn()
+      }, 0);
   }
 
   logout() {
     this.isLoggedIn = false;
     this.auth.logout();
-  }
-
-  openVerticallyCentered(content) {
-    this.modalService.open(content, { centered: true }).result.then(
-      (result) => {
-      }
-    );
-  }
-
-  setCurrentCompetition() {
-    this.competitionHandler.getCurrentCompetition().subscribe(
-      competition => {
-        if (competition) this.activeCompetitionUri = competition._links.self;
-        else this.openVerticallyCentered(this.modal);
-      },
-      err => {
-        console.log(err);
-        this.openVerticallyCentered(this.modal);
-      }
-    );
-  }
-
-  competitionCreated(competition: Competition) {
-    this.currentUser.competitions.push(competition);
   }
 }

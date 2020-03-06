@@ -5,6 +5,7 @@ import { FormsModule } from '@angular/forms';
 import { CompetitionImporterService } from '../competition-importer.service';
 import { Competition } from '../models/competition.model';
 import { Test } from '../models/test.model';
+import { TestBlock } from '../models/testblock.model';
 
 @Component({
   selector: 'app-print-handler',
@@ -16,7 +17,7 @@ export class PrintHandlerComponent implements OnInit {
   settings;
   template = '';
   judges;
-  tests: Test[] = [];
+  tests: TestBlock[] = [];
 
   constructor(private app: AppComponent,
     private competitionHandler: CompetitionHandlerService) { }
@@ -24,20 +25,11 @@ export class PrintHandlerComponent implements OnInit {
     currentCompetition: Competition;
 
   ngOnInit() {
-    // this.getSettings();
-    // this.getJudges();
-
     this.competitionHandler.getCurrentCompetition().subscribe(
       competition => {
         this.currentCompetition = competition;
-        this.competitionHandler.getTests(this.currentCompetition._links.self).subscribe(
-          tests => {
-            for (let test of tests) {
-              // if (test.starttime) {
-                this.tests.push(test);
-              // }
-            }
-          }
+        this.competitionHandler.getSchedule(this.currentCompetition._links.schedule).subscribe(
+          tests => this.tests = tests
         );
       }
     );
@@ -62,9 +54,9 @@ export class PrintHandlerComponent implements OnInit {
     return new Date(day);
   }
 
-  // getTestsByDay(day): Test[] {
-    // return this.tests.filter(test => test.starttime.getDate() === day.getDate());
-  // }
+  getTestsByDay(day): TestBlock[] {
+    return this.tests.filter(test => test.starttime.getDate() === day.getDate());
+  }
 
   print(): void {
     setTimeout( () => window.print(), 100);

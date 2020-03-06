@@ -1,0 +1,39 @@
+<div class="container h-100">
+    <div class="row h-100 align-items-center">
+        <div class="col-12 col-md-6 mx-auto align-self-center">
+            <form class="card h-100 justify-content-center" [formGroup]="userForm" (ngSubmit)="onSubmit(userForm.value)">
+                <div class="card-body">
+                    <div class="card-title text-center">
+                        <h4>Register</h4>
+                    </div>
+
+                    <div class="form-group">
+                        <input type="text" class="form-control rounded-pill" id="username" placeholder="Username" formControlName="username" />
+                    </div>
+            
+                    <div class="form-group">
+                        <input type="email" class="form-control rounded-pill" id="email" placeholder="Email" formControlName="email" />
+                    </div>
+
+                    <div class="form-group">
+                        <input type="password" class="form-control rounded-pill" placeholder="Password" formControlName="password" required />
+                        <small *ngIf="userForm.get('password').errors?.required && (userForm.touched || userForm.dirty)" class="text-danger">
+                            Please choose a new password.
+                        </small>
+                    </div>
+
+                    <div class="form-group">
+                        <input type="password" class="form-control rounded-pill" placeholder="Confirm password" formControlName="confirm" required />
+                        <small *ngIf="userForm.errors?.passwordsNotEqual && (userForm.touched || userForm.dirty)" class="text-danger">Passwords must match</small>
+                        <small *ngIf="userForm.get('confirm').errors?.required && (userForm.touched || userForm.dirty)" class="text-danger">Please type in your password again.</small>
+                    </div>
+
+                    <div class="buttons w-100 d-flex justify-content-between">
+                        <button type="button" class="btn rounded-pill btn-primary" routerLink="/login">Login</button>
+                        <button type="submit" class="btn rounded-pill btn-success">Register</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

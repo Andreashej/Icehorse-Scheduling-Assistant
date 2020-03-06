@@ -3,3 +3,24 @@
     display: flex;
     align-items: center;
 }
+
+.logo-container {
+    background-color: #3EB650;
+    width: 4rem;
+    height: 4rem;
+    font-size: 3rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    max-width: 4rem;
+}
+
+.header-right {
+    display: flex;
+    align-items: center;
+}
+
+.btn:hover {
+    box-shadow: rgba(0,0,0,0.1) 0 0 5px;
+}

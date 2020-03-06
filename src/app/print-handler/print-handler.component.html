@@ -1,4 +1,4 @@
-<div class="no-print">
+<!-- <div class="no-print">
   <h1>Print Schedule for current track</h1>
   <div class="row template-selector">
     <div class="col-4 input-group mb-3">
@@ -12,19 +12,19 @@
       </div>
     </div>
   </div>
-</div>
+</div> -->
 
-<div id="schedule-template" class="print schedule-template" *ngIf="template === 'schedule'">
+<div *ngIf="currentCompetition" id="schedule-template" class="print schedule-template">
   <div class="day" *ngFor="let day of currentCompetition.getDaysAsArray()">
     <div class="header">
       <h1 class="competition-name">{{ currentCompetition.name }}</h1>
     </div>
     <h1>Time Schedule</h1>
-    <app-day [date]="day" [printTemplate]="template" [competition]="currentCompetition" [tests]="getTestsByDay(day)"></app-day>
+    <app-day [date]="day" [printTemplate]="template" [competition]="currentCompetition" [testblocks]="getTestsByDay(day)"></app-day>
   </div>
 </div>
 
-<div id="judge-template" class="print judge-template" *ngIf="template === 'judge'">
+<!-- <div id="judge-template" class="print judge-template" *ngIf="template === 'judge'">
   <div class="judge" *ngFor="let judge of judges">
     <div class="header">
       <h1 class="competition-name">{{ settings.name }}</h1>
@@ -52,4 +52,4 @@
       </ng-container>
     </table>
   </div>
-</div>
+</div> -->

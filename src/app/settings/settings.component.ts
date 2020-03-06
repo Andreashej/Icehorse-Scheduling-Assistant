@@ -21,11 +21,8 @@ import { ActivatedRoute, ParamMap } from '@angular/router';
 export class SettingsComponent implements OnInit {
 
   constructor(private competitionHandler: CompetitionHandlerService,
-              private competitionImporter: CompetitionImporterService,
               private auth: AuthService,
-              private updateHandler: GlobalUpdateService,
-              private route: ActivatedRoute) { }
-  tests: Test[];           
+              ) { }       
   currentCompetition: Competition = null;
   addVenue;
   allVenues: Venue[] = [];
@@ -64,9 +61,6 @@ export class SettingsComponent implements OnInit {
     this.competitionHandler.getCurrentCompetition().subscribe(
       competition => {
         this.currentCompetition = competition;
-        this.competitionHandler.getTests(this.currentCompetition._links.self).subscribe(
-          res => this.tests = res
-        )
       }
     );
 

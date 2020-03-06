@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CompetitionHandlerService } from '../competition.handler.service';
 import { Competition } from '../models/competition.model';
 import { TestFull } from '../models/test-full.model';
+import { GlobalUpdateService } from '../global-update.service';
 
 @Component({
   selector: 'app-test-setup',
@@ -14,6 +15,7 @@ export class TestSetupComponent implements OnInit {
 
   constructor(
     private competitionHandler: CompetitionHandlerService,
+    private updater: GlobalUpdateService
   ) { }
 
   ngOnInit() {
