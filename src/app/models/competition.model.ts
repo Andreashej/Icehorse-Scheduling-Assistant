@@ -30,6 +30,10 @@ export class Competition implements Deserializeable {
 
         return `${this.startdate.getFullYear()}-${month}-${date}`;
     }
+
+    setStartDate(date: Date): void {
+        this.startdate = this.dateToUTC(date);
+    }
     
     getEndDate(): string {
         let month = (this.enddate.getMonth() + 1).toString();
@@ -44,8 +48,16 @@ export class Competition implements Deserializeable {
         return `${this.enddate.getFullYear()}-${month}-${date}`;
     }
 
+    setEndDate(date: Date): void {
+        this.enddate = this.dateToUTC(date);
+    }
+
+    dateToUTC(date: Date): Date {
+        return new Date(Date.UTC(date.getFullYear(), date.getMonth(), date.getDate()));
+    }
+
     getDays(): number {
-        return this.enddate.getDate() - this.startdate.getDate() + 1;
+        return (this.enddate.getTime() - this.startdate.getTime()) / 1000 / 60 / 60 / 24 + 1;
     }
 
     getDaysAsArray() {
@@ -61,8 +73,8 @@ export class Competition implements Deserializeable {
 
     deserialize(input: any): this {
         Object.assign(this, input);
-        this.startdate = new Date(input.startdate);
-        this.enddate = new Date(input.enddate);
+        this.startdate = new Date(input.startdate + 'Z');
+        this.enddate = new Date(input.enddate + 'Z');
 
         let index = 0;
         for (let venue of input.venues) {

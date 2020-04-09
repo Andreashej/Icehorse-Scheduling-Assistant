@@ -1,36 +1,30 @@
 <div *ngIf="currentCompetition" class="row">
   <div class="col">
     <div class="page-section">
-      <div class="row mt-2">
-        <div class="col input-group">
-          <div class="input-group-prepend">
-            <label for="competitionName" class="input-group-text">Competition name</label>
-          </div>
-          <input id="competitionName" #competitionName type="text" class="form-control" [(ngModel)]="currentCompetition.name">
+      <div class="row mt-4">
+        <div class="col-6 input-group">
+          <span class="ui-float-label w-100">
+            <input id="competitionName" #competitionName type="text" class="form-control rounded-pill" [(ngModel)]="currentCompetition.name" pInputText>
+            <label for="competitionName">Competition name</label>
+          </span>
         </div>
       </div>
-      <div class="row mt-2">
+      <div class="row mt-4">
         <div class="col input-group">
-          <div class="input-group-prepend">
-            <label class="input-group-text" for="startDate">Start Date</label>
-          </div>
-          <input #startDate id="startDate" class="form-control" placeholder="yyyy-mm-dd" name="dp" value="{{ currentCompetition.getStartDate() }}" ngbDatepicker #dpStart="ngbDatepicker">
-          <div class="input-group-append">
-            <button class="btn btn-outline-secondary fa fa-calendar" (click)="dpStart.toggle()" type="button"></button>
-          </div>
+          <span class="ui-float-label w-100">
+            <p-calendar class="w-100" #startDate id="startDate" styleClass="w-100" inputStyleClass="form-control rounded-pill" name="startDate" dateFormat="dd-mm-yy" [(ngModel)]="newStartDate"></p-calendar>
+            <label for="startDate">Start Date</label>
+          </span>
         </div>
 
         <div class="col input-group">
-          <div class="input-group-prepend">
-            <label class="input-group-text" for="endDate">End Date</label>
-          </div>
-          <input #endDate id="endDate" class="form-control" placeholder="yyyy-mm-dd" name="dp" value="{{ currentCompetition.getEndDate() }}" ngbDatepicker #dpEnd="ngbDatepicker">
-          <div class="input-group-append">
-            <button class="btn btn-outline-secondary fa fa-calendar" (click)="dpEnd.toggle()" type="button"></button>
-          </div>
+          <span class="ui-float-label w-100">
+            <p-calendar class="w-100" #endDate id="endDate" styleClass="w-100" inputStyleClass="form-control rounded-pill" name="endDate" dateFormat="dd-mm-yy" [(ngModel)]="newEndDate"></p-calendar>
+            <label for="endDate">End Date</label>
+          </span>
         </div>
       </div>
-      <div class="row mt-2">
+      <!-- <div class="row mt-2">
         <div class="col input-group">
           <div class="input-group-prepend">
             <label for="" class="input-group-text">Tracks / Venues</label>
@@ -45,15 +39,16 @@
           <div class="competitionVenues col">
             <span class="venue badge badge-info mr-1" *ngFor="let venue of currentCompetition.venues">{{ venue.name }} <a class="fa fa-trash" (click)="removeVenue(venue)"></a></span>
           </div>
-      </div>
+      </div> -->
       <div class="row mt-2">
-        <div class="col">
-          <button class="btn btn-success" (click)="saveCompetition(startDate.value, endDate.value);">Save</button>
-          <button class="btn btn-danger ml-1" (click)="deleteCompetition();">Delete competition</button>
+        <div class="col d-flex justify-content-between">
+          <button pButton type="button" icon="pi pi-save" label="Save" class="ui-button-raised ui-button-success ui-button-rounded" (click)="saveCompetition(startDate.value, endDate.value);"></button>
+          <button pButton type="button" icon="pi pi-trash" label="Delete competition" class="ui-button-raised ui-button-danger ui-button-rounded" (click)="deleteCompetition();"></button>
         </div>
+        <p-confirmDialog header="Are you sure?" icon="pi pi-trash"></p-confirmDialog>
       </div>
     </div>
-    <div class="page-section">
+    <!-- <div class="page-section">
       <h2>Users</h2>
       <div class="row mt-2">
         <div class="col input-group">
@@ -81,6 +76,6 @@
           <ngb-alert *ngIf="alert.message !== ''" [dismissible]="false" [type]="alert.type">{{alert.message}}</ngb-alert>
         </div>
       </div>
-    </div>
+    </div> -->
   </div>
 </div>

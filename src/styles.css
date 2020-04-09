@@ -37,11 +37,33 @@ ngb-popover-window {
     width: 274px;
 }
 
+.fc-toolbar {
+    margin: 0!important;
+}
+
+body .ui-sidebar .ui-sidebar-close {
+    position: absolute;
+    top: .5rem;
+    right: .5rem;
+}
+
+body .ui-sidebar .sidebar-header-btn {
+    font-size: 1.5rem;
+    border-radius: 50rem;
+}
+
+body .ui-sidebar .p-grid {
+    margin-right: -1px;
+    margin-left: -1px;
+}
+
 .schedule-cell-dimension.e-schedule .e-vertical-view .e-time-cells-wrap table td,
 .schedule-cell-dimension.e-schedule .e-vertical-view .e-work-cells,
-.schedule-cell-dimension.e-schedule .e-month-view .e-work-cells
+.schedule-cell-dimension.e-schedule .e-month-view .e-work-cells,
+.fc-time-grid .fc-slats table tbody tr td
  {
     height: 10px;
+    overflow: visible;
 }
 
 .schedule-cell-dimension.e-schedule .e-vertical-view .e-time-cells-wrap table td {
@@ -51,13 +73,19 @@ ngb-popover-window {
     font-size: 0;
 }
 
-.schedule-cell-dimension.e-schedule .e-vertical-view .e-time-cells-wrap table td span {
+.fc-time-grid .fc-slats table tbody tr.fc-minor td {
+    border: none;
+}
+
+.schedule-cell-dimension.e-schedule .e-vertical-view .e-time-cells-wrap table td span,
+.fc-time-grid .fc-slats table tbody tr td span {
     height: 9px;
     overflow: visible;
     display: block;
     font-size: 11px;
     text-align: right;
     padding-right: 5px;
+    width: 1.5rem;
 }
 
 .e-schedule .e-vertical-view .e-alternate-cells {
@@ -73,89 +101,6 @@ ngb-popover-window {
     padding: 5px;
 }
 
-.e-header-cells {
-    /* height: 4rem!important; */
-}
-
-[aria-label*="T1"] {
-    background-color: #A9D978!important;
-    color: black!important;
-}
-
-[aria-label*="T2"] {
-    background-color: #B4FFB3!important;
-    color: black!important;
-}
-
-[aria-label*="T3"] {
-    background-color: #67A266!important;
-    color: black!important;
-}
-
-[aria-label*="T4"] {
-    background-color: #44985D!important;
-    color: white!important;
-}
-
-[aria-label*="T5"] {
-    background-color: #9DB688!important;
-    color: black!important;
-}
-
-[aria-label*="T8"] {
-    background-color: #AABCA6!important;
-    color: black!important;
-}
-
-[aria-label*="V1"], [aria-label*="GDB"] {
-    background-color: #7194C0!important;
-    color: black!important;
-}
-
-[aria-label*="V2"], [aria-label*="GDT"] {
-    background-color: #4B627F!important;
-    color: white!important;
-}
-
-[aria-label*="V3"], [aria-label*="GDC"] {
-    background-color: #96C4FF!important;
-    color: black!important;
-}
-
-[aria-label*="V5"], [aria-label*="GDY"] {
-    background-color: #263140!important;
-    color: white!important;
-}
-
-[aria-label*="F1"], [aria-label*="GDA"] {
-    background-color: #34495e!important;
-    color: white!important;
-}
-
-[aria-label*="F2"] {
-    background-color: #87B0E5!important;
-    color: black!important;
-}
-
-[aria-label*="PP1"] {
-    background-color: #E74C3C!important;
-    color: white!important;
-}
-
-[aria-label*="P2"] {
-    background-color: #C0392B!important;
-    color: white!important;
-}
-
-[aria-label*="P1"], [aria-label*="P3"] {
-    background-color: #A4392C!important;
-    color: white!important;
-}
-
-.custom {
-    background-color: #d6d8d9;
-    color: black;
-}
 
 .btn-success, .background-success {
     background-color: #3EB650!important;

@@ -1,10 +1,16 @@
 import { Component, OnInit, ViewChild, Input } from '@angular/core';
 import { CompetitionHandlerService } from '../competition.handler.service';
-import { DayService, DragAndDropService, WeekService, ResizeService, EventSettingsModel, TimeScaleModel, GroupModel, ScheduleComponent as Scheduler, ResizeEventArgs, DragEventArgs, WorkHoursModel } from '@syncfusion/ej2-angular-schedule';
+import { DayService, DragAndDropService, WeekService, ResizeService, EventSettingsModel, TimeScaleModel, GroupModel, ScheduleComponent as Scheduler, ResizeEventArgs, DragEventArgs, WorkHoursModel, Timezone } from '@syncfusion/ej2-angular-schedule';
 import { Competition } from '../models/competition.model';
 import { TestBlock } from '../models/testblock.model';
-import { Venue } from '../models/venue.model';
-import { Internationalization } from '@syncfusion/ej2-base';
+
+import dayGridPlugin from '@fullcalendar/daygrid';
+import timeGridPlugin from '@fullcalendar/timegrid';
+import interactionPlugin from '@fullcalendar/interaction';
+import { MessageService } from 'primeng/api';
+import { TestFull } from '../models/test-full.model';
+import {MenuItem} from 'primeng/api';
+import { FullCalendarComponent } from '@fullcalendar/angular';
 
 @Component({
   selector: 'app-schedule',
@@ -16,133 +22,177 @@ export class ScheduleComponent implements OnInit {
   @Input() competition: Competition;
   menuState = 'show';
 
-  UTC;
-
   @ViewChild('scheduleObj', { static: false })
-  public scheduleObj: Scheduler;
-
-  public instance: Internationalization = new Internationalization();
-
-  public eventSettings: EventSettingsModel = {
-    fields: {
-      id: 'id',
-      subject: { name: 'label', title: 'Testcode' },
-      startTime: { name: 'starttime', title: 'Start Time' },
-      endTime: { name: 'endtime', title: 'End Time'}
-    }
-  };
-
-  public timeScale: TimeScaleModel = {
-    slotCount: 12,
-    interval: 60,
-    enable: true,
-  };
-
-  public group: GroupModel = null;
-
-  public workHours: WorkHoursModel = {
-    highlight: false
-  }
+  public scheduleObj: FullCalendarComponent;
 
   loading = true;
 
-  constructor(private competitionHandler: CompetitionHandlerService) { }
+  events: any[] = [];
+
+  public calendarPlugins = [dayGridPlugin, timeGridPlugin, interactionPlugin];
+
+  public calendarViews = {};
+
+  public timeFormat = {
+    hour: "2-digit",
+    minute: "2-digit",
+    meridiem: false,
+    hour12: false
+  }
+
+  public columnHeaderTimeFormat = {
+    weekday: 'short',
+    day: 'numeric',
+    month: 'long'
+  }
+
+  public slotLabelTimeFormat = {
+    hour: '2-digit',
+    minute: '2-digit',
+    hour12: false
+  }
+
+  selectionStart: Date;
+  selectionEnd: Date;
+  unscheduledTests: TestFull[] = [];
+
+  showNewBlockSidebar: boolean = false;
+
+  showBlockEditSidebar: boolean = false;
+  activeBlock: TestBlock = null;
+
+  sidebarButtons = [
+    {
+      icon: "pi pi-trash",
+      style: "ui-button-danger",
+      name: "deleteBlock"
+    }
+  ]
+
+  constructor(private competitionHandler: CompetitionHandlerService,
+    private messageService: MessageService) { }
 
   ngOnInit() {
-    if(this.competition.venues[0].name !== 'default') {
-      this.group = {
-        byDate: true,
-        resources: ['Venues'],
-      };
+    this.calendarViews = {...this.calendarViews,
+      timeGridCompetition: {
+        type: 'timeGrid',
+        duration: { days: this.competition.getDays()},
+        allDaySlot: false
+      }
+    };
+      
+    console.log(this.competition.startdate);
+
+    this.competitionHandler.getSchedule(this.competition._links.schedule).subscribe(
+      tests => this.events = tests
+    );
+  }
+
+  parseEvent(testblock: TestBlock) {
+    const colours = testblock.getColour();
+    return {
+      id: testblock._links.self,
+      title: testblock.label,
+      start: testblock.starttime,
+      end: testblock.endtime,
+      color: colours.bg,
+      textColor: colours.text,
+      extendedProps: {
+        testblock: testblock
+      }
     }
   }
 
-
-  onCreate() {
-    this.competitionHandler.getSchedule(this.competition._links.schedule).subscribe(
-      tests => this.scheduleObj.eventSettings.dataSource = tests
-    );
-  }
-
-  dragStart(args: DragEventArgs) {
-    args.scroll = { enable: true, scrollBy: 5, timeDelay: 200 };
-  }
-
-  dragEnd(e: DragEventArgs) {
-    const test: TestBlock = new TestBlock().deserialize(e.data, true);
-
-    this.competitionHandler.updateSchedule(test._links.self, {
-      starttime: test.starttime,
-      venue: test.venue
+  saveEvent({event}) {
+    this.competitionHandler.updateSchedule(event.extendedProps.testblock._links.self, {
+      starttime: event.start
     }).subscribe(
-      test => this.updateTestBlock(test._links.self, test),
-      (err) => console.log(err)
+      block => {
+        event.setExtendedProp("testblock", block);
+      }
     );
   }
 
-  onResizeStart(event: ResizeEventArgs) {
-    // const block = new TestBlock().deserialize(event.data, true);
+  updateBlockLength({event}) {
+    let block = event.extendedProps.testblock;
 
-    // event.interval = block.test.grouptime as number;
-    event.interval = 5;
-    
-  }
+    block.endtime = event.end;
 
-  onResize(event: ResizeEventArgs) {
-    let block = new TestBlock().deserialize(event.data, true);
+    console.log(block);
 
-    // block.endtime = event.endTime;
-  }
+    let params;
 
-  onResizeStop(event: ResizeEventArgs) {
-    const block = new TestBlock().deserialize(event.data, true);
-    
-    let values = null;
-
-    if (block.phase == 'PREL') {
-      values = {
+    if (block.phase === "PREL") {
+      params = {
         groups: block.groupsFromDuration()
       };
     } else {
-      values = {
+      params = {
         grouptime: (block.endtime.getTime() - block.starttime.getTime()) / 1000 / 60
-      }
+      };
     }
 
-    this.competitionHandler.updateSchedule(block._links.self, values).subscribe(
+    this.competitionHandler.updateSchedule(block._links.self, params).subscribe(
       block => {
-        event.data.groups = block.groups;
-        this.scheduleObj.saveEvent(event.data);
+        event.setExtendedProp("testblock", block);
+
+        const src = this.events[this.findEventIndex(block._links.self)];
+        src.end = block.getEndTime
       }
     );
   }
 
-  updateTestBlock(uri: string, values: Object): void {
-    console.log(this.scheduleObj.eventSettings.dataSource);
-    const update = (this.scheduleObj.eventSettings.dataSource as TestBlock[]).find(event => event._links.self === uri);
+  timeSelect(event) {
+    this.selectionStart = event.start;
+    this.selectionEnd = event.end;
 
-    for (const [key, value] of Object.entries(values)) {
-      update[key] = value;
-    }
+    this.competitionHandler.getUnscheduledTests(this.competition._links.self).subscribe(
+      tests => {
+        this.unscheduledTests = tests;
+        this.showNewBlockSidebar = true;
+        console.log(this.unscheduledTests);
+      },
+      err => console.log(err)
+    );
   }
 
-  onCloseClick(e?): void {
-    this.scheduleObj.quickPopup.quickPopupHide();
+  addEvent(block: TestBlock) {
+    this.events = [
+      ...this.events,
+      block
+    ];
+    this.showNewBlockSidebar = false;
   }
 
-  updateSchedule(e) {
-    this.onCloseClick();
-    this.scheduleObj.addEvent(e);
-  }
+  deleteActiveBlock() {
 
-  deleteTest(e) {
-    const block = new TestBlock().deserialize(e);
-    this.competitionHandler.deleteTestBlock(block._links.self).subscribe(
+    this.competitionHandler.deleteTestBlock(this.activeBlock._links.self).subscribe(
       res => {
-        this.scheduleObj.deleteEvent(e.id)
-        this.onCloseClick();
+        let newEvents = [...this.events];
+        newEvents.splice(this.findEventIndex(this.activeBlock._links.self), 1);
+        this.events = newEvents;
+        this.showBlockEditSidebar = false;
       }
     );
+  }
+
+  showEditSidebar({event}) {
+    console.log(event);
+    this.activeBlock = event.extendedProps.testblock;
+
+    this.showBlockEditSidebar = true;
+  }
+
+  findEventIndex(uri: string): number {
+    return this.events.findIndex(block => block._links.self === uri);
+  }
+
+  handleSidebarAction(action) {
+    switch(action) {
+      case 'deleteBlock':
+        this.deleteActiveBlock();
+        break;
+    }
   }
 
 }

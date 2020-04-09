@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, Input, EventEmitter } from '@angular/core';
+import { Component, OnInit, Output, Input, EventEmitter, OnChanges } from '@angular/core';
 import { TestFull } from '../models/test-full.model';
 import { CompetitionHandlerService } from '../competition.handler.service';
 import { TestBlock } from '../models/testblock.model';
@@ -9,9 +9,10 @@ import { TestBlock } from '../models/testblock.model';
   styleUrls: ['./schedule-block-list.component.css']
 })
 export class ScheduleBlockListComponent implements OnInit {
-  tests: TestFull[] = [];
+  @Input() tests: TestFull[] = [];
+  @Input() startTime: Date;
+  @Input() endTime: Date;
 
-  @Input() data;
   @Output() created = new EventEmitter;
 
   competitionUri: string;
@@ -19,29 +20,30 @@ export class ScheduleBlockListComponent implements OnInit {
   constructor(private competitionHandler: CompetitionHandlerService) { }
 
   ngOnInit() {
+    
+    
     this.competitionUri = localStorage.getItem("currentCompetition");
-
-    this.competitionHandler.getUnscheduledTests(this.competitionUri).subscribe(
-      tests => {this.tests = tests; console.log(this.tests)},
-      err => console.log(err)
-    );
   }
 
   createTestBlock(test, phase) {
     let params = null;
 
+    if ((this.endTime.getTime() - this.startTime.getTime()) / 60000 > 1) {
+      
+    }
+
     if (phase !== 'CUSTOM') {
       params = {
         test_id: test.test_id,
         phase: phase,
-        starttime: this.data.starttime,
+        starttime: this.startTime,
         venue_id: 1,
         groups: test.unscheduled_groups,
       }
     } else {
       params = {
         phase: phase,
-        starttime: this.data.starttime,
+        starttime: this.startTime,
         venue_id: 1,
         groups: 1,
         grouptime: test.duration,
@@ -55,7 +57,7 @@ export class ScheduleBlockListComponent implements OnInit {
           console.log(testblock);
           this.created.emit(testblock)
         }
-    )
+    );
   }
 
 }

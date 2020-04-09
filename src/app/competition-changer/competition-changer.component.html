@@ -1,10 +1,3 @@
-<div class="modal-header">
-    <h4 *ngIf="!createNew" class="modal-title">Select a competition</h4>
-    <h4 *ngIf="createNew" class="modal-title">Create a competition</h4>
-    <button type="button" class="close" aria-label="Close" (click)="modalDismiss(null)">
-        <span aria-hidden="true">&times;</span>
-    </button>
-</div>
 <div *ngIf="!createNew" class="list-group list-group-flush mb-0">
     <button *ngFor="let competition of competitions" class="list-group-item text-left" [class.active]="activeCompetitionUri == competition._links.self" (click)="handleCompetitionChange(competition._links.self)">
         {{competition.name}}
@@ -15,6 +8,7 @@
     </button>
 </div>
   <div *ngIf="createNew" class="modal-body">
+      <p-button label="Select a competition" icon="pi pi-arrow-left" iconPos="left" styleClass="ui-button-secondary ui-button-rounded ui-button-raised" (onClick)="createNew = false;"></p-button>
       <form>
           <div class="form-group">
               <label for="name">Name</label>

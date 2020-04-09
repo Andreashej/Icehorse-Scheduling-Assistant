@@ -1,15 +1,15 @@
-<ul class="list-group list-group-flush mb-0">
-    <li class="list-group-item" *ngFor="let test of tests">
-        <div class="d-flex justify-content-between w-100">
-            <div class="d-inline-flex btn btn-sm text-left px-0">{{ test.testcode }} ({{ test.unscheduled_groups }})</div>
-            <div class="btn-group btn-group-sm d-inline-flex">
-                <button *ngIf="test.unscheduled_groups > 0" class="btn btn-primary" (click)="createTestBlock(test, 'PREL')">Add PREL</button>
-                <button *ngIf="!test.hasBFIN && test.allowBFIN" class="btn btn-primary" (click)="createTestBlock(test, 'BFIN')">Add BFIN</button>
-                <button *ngIf="!test.hasAFIN && test.allowAFIN" class="btn btn-primary" (click)="createTestBlock(test, 'AFIN')">Add AFIN</button>
+<ul class="list-group list-group-flush mb-0 border-top border-bottom">
+    <li class="list-group-item px-4 py-0" *ngFor="let test of tests">
+        <div class="p-grid p-justify-between mt-0">
+            <div class="p-col d-flex align-items-center">{{ test.testcode }} ({{ test.unscheduled_groups }})</div>
+            <div class="p-col-8 text-right">
+                <button pButton type="button" *ngIf="test.unscheduled_groups > 0" class="ui-button-raised ui-button-rounded ui-button-info" label="Add PREL" (click)="createTestBlock(test, 'PREL')"></button>
+                <button pButton type="button" *ngIf="!test.hasBFIN && test.allowBFIN" class="ml-1 ui-button-raised ui-button-rounded ui-button-info" label="Add BFIN" (click)="createTestBlock(test, 'BFIN')"></button>
+                <button pButton type="button" *ngIf="!test.hasAFIN && test.allowAFIN" class="ml-1 ui-button-raised ui-button-rounded ui-button-info" label="Add AFIN" (click)="createTestBlock(test, 'AFIN')"></button>
             </div>
         </div>
     </li>
-    <li class="list-group-item">
+    <li class="list-group-item px-4">
         <div class="d-flex justify-content-between w-100">
             <div class="d-inline-flex btn btn-sm text-left px-0">Custom</div>
             <div class="input-group input-group-sm d-inline-flex">

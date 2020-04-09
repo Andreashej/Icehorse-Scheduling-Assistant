@@ -1,9 +1,69 @@
-<ejs-schedule #scheduleObj 
+<full-calendar #scheduleObj
+  defaultView="timeGridCompetition"
+
+  [plugins]="calendarPlugins"
+  [events]="events"
+  [defaultDate]="competition.startdate"
+  [views]="calendarViews"
+  [eventDataTransform]="parseEvent"
+  [eventTimeFormat]="timeFormat"
+  [columnHeaderFormat]="columnHeaderTimeFormat"
+  [slotLabelFormat]="slotLabelTimeFormat"
+
+
+  slotDuration="00:05:00"
+  timeZone="UTC"
+  height="parent"
+  header="false"
+  selectable="true"
+  nowIndicator="true"
+  slotLabelInterval="01:00"
+  minTime="06:00"
+  maxTime="23:00"
+  editable="true"
+  snapDuration="00:01:00"
+
+  (eventDrop)="saveEvent($event)"
+  (eventResize)="updateBlockLength($event)"
+
+  (select)="timeSelect($event)"
+
+  (eventClick)="showEditSidebar($event)"
+>
+</full-calendar>
+
+<app-sidebar [visible]="showNewBlockSidebar" header="Add block" (sidebarHidden)="showNewBlockSidebar = false">
+  <app-schedule-block-list
+    [startTime]="selectionStart"
+    [endTime]="selectionEnd"
+    [tests]="unscheduledTests"
+    (created)="addEvent($event)"
+  ></app-schedule-block-list>
+</app-sidebar>
+
+<app-sidebar [visible]="showBlockEditSidebar" header="Edit block" [headerButtons]="sidebarButtons" (sidebarHidden)="showBlockEditSidebar = false" (buttonClicked)="handleSidebarAction($event)">
+  <div *ngIf="activeBlock" class="p-grid p-4">
+    <div class="p-col px-0">
+      <span class="ui-float-label">
+        <input id="float-input" type="text" size="30" pInputText [value]="activeBlock.label" [disabled]="activeBlock.phase !== 'CUST'"> 
+        <label for="float-input">Label</label>
+      </span>
+      <p-button label="Save" icon="pi pi-save" styleClass="ui-button-raised ui-button-rounded ui-button-success mt-2"></p-button>
+    </div>
+  </div>
+  <ul *ngIf="activeBlock" class="list-group list-group-flush border-top border-bottom">
+    <li class="list-group-item px-4">
+      Duration: {{ activeBlock.getHours() }}h {{ activeBlock.getMinutes() }}m
+    </li>
+  </ul>
+</app-sidebar>
+
+<!-- <ejs-schedule #scheduleObj 
   cssClass="schedule-cell-dimension"
   width="100%"
   height="100%"
 
-  [timezone]="UTC"
+  timezone="UTC"
   
   [selectedDate]="competition.startdate"
   [eventSettings]="eventSettings"
@@ -63,4 +123,4 @@
     <div class="e-header-day">{{ data.date | date:"EEEE"}}</div>
     <div class="e-header-date">{{data.date | date:"d MMMM"}}</div>
   </ng-template>
-</ejs-schedule>
+</ejs-schedule> -->

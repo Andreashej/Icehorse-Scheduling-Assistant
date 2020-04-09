@@ -1,0 +1,11 @@
+<p-sidebar [(visible)]="visible" position="right" styleClass="ui-sidebar-md p-0" (onHide)="hideSidebar()">
+    <div class="p-grid p-4 bg-success">
+        <div class="p-col pr-0">
+          <h2 class="display-4 text-white mb-0">{{ header }}</h2>
+        </div>
+        <div *ngIf="headerButtons" class="p-col d-flex justify-content-end align-items-center pl-0">
+          <p-button *ngFor="let btn of headerButtons" [icon]="btn.icon" type="button" styleClass="ui-button-raised ui-button-rounded sidebar-header-btn {{ btn.style }}" (onClick)="buttonClick(btn.name)"></p-button>
+        </div>
+      </div>
+    <ng-content></ng-content>
+</p-sidebar>

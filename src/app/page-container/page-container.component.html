@@ -7,8 +7,8 @@
         <h1 class="mb-0">{{ title }}</h1>
         <div class="header-right">
           <div *ngIf="isLoggedIn" class="buttons">
-            <button *ngIf="currentUser" class="btn btn-sm btn-light mr-1"  ngbTooltip="User Settings" (click)="openVerticallyCentered(userModal)"><i class="fa fa-user"></i> {{currentUser.username}}</button>
-            <button class="btn btn-sm btn-light mr-1" ngbTooltip="Change competition" (click)="openVerticallyCentered(competitionModal)"><i class="fa fa-home"></i><span *ngIf="competition"> {{ competition.name }}</span><span *ngIf="!competition" class="text-muted"> No competition selected</span></button>
+            <button *ngIf="currentUser" class="btn btn-sm btn-light mr-1"  ngbTooltip="User Settings" (click)="showUserEdit = true"><i class="fa fa-user"></i> {{currentUser.username}}</button>
+            <button class="btn btn-sm btn-light mr-1" ngbTooltip="Change competition" (click)="showCompetitionChanger = true"><i class="fa fa-home"></i><span *ngIf="competition"> {{ competition.name }}</span><span *ngIf="!competition" class="text-muted"> No competition selected</span></button>
           </div>
         </div>
       </div>
@@ -16,10 +16,12 @@
     <ng-content></ng-content>
 </div>
 
-<ng-template #competitionModal let-modalClose="close" let-modalDismiss="dismiss">
-  <app-competition-changer *ngIf="currentUser" [competitions]="currentUser.competitions" [activeCompetitionUri]="activeCompetitionUri" (close)="modalDismiss($event)" (create)="competitionCreated($event)"></app-competition-changer>
-</ng-template>
+<p-toast></p-toast>
 
-<ng-template #userModal let-modalClose="close" let-modalDismiss="dismiss">
-  <app-user-edit *ngIf="currentUser" [user]="currentUser" (close)="modalDismiss($event)" (userUpdate)="updateUser($event)"></app-user-edit>
-</ng-template>
+<app-sidebar [visible]="showCompetitionChanger" (sidebarHidden)="showCompetitionChanger = false" header="Change competition">
+  <app-competition-changer *ngIf="currentUser" [competitions]="currentUser.competitions" [activeCompetitionUri]="competition ? competition._links.self : null" (create)="competitionCreated($event)" (close)="showCompetitionChanger = false"></app-competition-changer>
+</app-sidebar>
+
+<app-sidebar [visible]="showUserEdit" (sidebarHidden)="showUserEdit = false" header="Edit user">
+  <app-user-edit *ngIf="currentUser" [user]="currentUser" (userUpdate)="updateUser($event)" (close)="showUserEdit = false"></app-user-edit>
+</app-sidebar>

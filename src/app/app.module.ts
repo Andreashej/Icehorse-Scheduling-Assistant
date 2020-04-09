@@ -38,6 +38,20 @@ import { CompetitionChangerComponent } from './competition-changer/competition-c
 import { UserEditComponent } from './user-edit/user-edit.component';
 import { RegisterComponent } from './register/register.component';
 
+import {InputTextModule} from 'primeng/inputtext';
+import {CalendarModule} from 'primeng/calendar';
+import {ButtonModule} from 'primeng/button';
+import {ConfirmDialogModule} from 'primeng/confirmdialog';
+import {ConfirmationService, MessageService} from 'primeng/api';
+import {ToastModule} from 'primeng/toast';
+import {OverlayPanelModule} from 'primeng/overlaypanel';
+import {SidebarModule} from 'primeng/sidebar';
+import {ContextMenuModule} from 'primeng/contextmenu';
+import {SelectButtonModule} from 'primeng/selectbutton';
+
+import {FullCalendarModule} from '@fullcalendar/angular';
+import { SidebarComponent } from './sidebar/sidebar.component';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -60,7 +74,8 @@ import { RegisterComponent } from './register/register.component';
     CompetitionChangerComponent,
     PrintContainerComponent,
     UserEditComponent,
-    RegisterComponent
+    RegisterComponent,
+    SidebarComponent
   ],
   imports: [
     BrowserModule,
@@ -74,11 +89,24 @@ import { RegisterComponent } from './register/register.component';
     TreeViewModule,
     BrowserAnimationsModule,
     ReactiveFormsModule,
+    InputTextModule,
+    FullCalendarModule,
+    CalendarModule,
+    ButtonModule,
+    ConfirmDialogModule,
+    ToastModule,
+    FullCalendarModule,
+    OverlayPanelModule,
+    SidebarModule,
+    ContextMenuModule,
+    SelectButtonModule
   ],
   providers: [
     CompetitionImporterService,
     CompetitionHandlerService,
     GlobalUpdateService,
+    ConfirmationService,
+    MessageService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: AuthInterceptor,

@@ -12,6 +12,7 @@ import { Subject, Observable, merge } from 'rxjs';
 import { debounceTime, distinctUntilChanged, filter, map, switchMap } from 'rxjs/operators';
 import { Alert } from '../models/alert.model';
 import { ActivatedRoute, ParamMap } from '@angular/router';
+import { ConfirmationService, MessageService } from 'primeng/api';
 
 @Component({
   selector: 'app-settings',
@@ -22,12 +23,17 @@ export class SettingsComponent implements OnInit {
 
   constructor(private competitionHandler: CompetitionHandlerService,
               private auth: AuthService,
+              private confirmationService: ConfirmationService,
+              private messageService: MessageService
               ) { }       
   currentCompetition: Competition = null;
   addVenue;
   allVenues: Venue[] = [];
   newUserName: string = '';
   newUserPass: string = '';
+
+  newStartDate: Date;
+  newEndDate: Date;
 
   
   alert = new Alert('', '');
@@ -61,6 +67,8 @@ export class SettingsComponent implements OnInit {
     this.competitionHandler.getCurrentCompetition().subscribe(
       competition => {
         this.currentCompetition = competition;
+        this.newStartDate = new Date(Date.UTC(competition.startdate.getFullYear(), competition.startdate.getMonth(), competition.startdate.getDate()));
+        this.newEndDate = new Date(Date.UTC(competition.enddate.getFullYear(), competition.enddate.getMonth(), competition.enddate.getDate()));
       }
     );
 
@@ -72,19 +80,32 @@ export class SettingsComponent implements OnInit {
 
 
   deleteCompetition() {
-    this.competitionHandler.deleteCompetition(this.currentCompetition._links.self).subscribe(
-      (res) => {
-        localStorage.setItem('currentCompetition', null);
-      },
-      (err) => console.log(err)
-    )
+    this.confirmationService.confirm({
+      message: "Are you sure you want to delete this competition including all tests and schedules?",
+      accept: () => {
+        this.competitionHandler.deleteCompetition(this.currentCompetition._links.self).subscribe(
+          (res) => {
+            localStorage.setItem('currentCompetition', null);
+            this.messageService.add({severity: 'success', summary: 'Deleted competition', detail: `Successfully deleted ${this.currentCompetition.name}`});
+          },
+          ({error}) => {
+            console.log(error);
+            this.messageService.add({severity: 'error', summary: 'Failed to delete competition', detail: error.response});
+          }
+        );
+      }
+    })
   }
 
-  saveCompetition(startDate, endDate) {
-    this.currentCompetition.startdate = new Date(startDate);
-    this.currentCompetition.enddate = new Date(endDate);
+  saveCompetition() {
+    this.currentCompetition.setStartDate(this.newStartDate);
+    this.currentCompetition.setEndDate(this.newEndDate);
+    
     this.competitionHandler.updateCompetition(this.currentCompetition._links.self, this.currentCompetition).subscribe(
-      res => this.currentCompetition = res,
+      res => {
+        this.currentCompetition = res;
+        this.messageService.add({severity: "success", summary: 'Saved competition', detail: `Successfully saved ${this.currentCompetition.name}`})
+      },
       err => console.log(err)
     )
   }

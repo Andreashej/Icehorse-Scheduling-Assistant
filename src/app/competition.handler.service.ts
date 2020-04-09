@@ -105,6 +105,7 @@ export class CompetitionHandlerService {
   }
 
   updateSchedule(uri: string, params: any): Observable<TestBlock> {
+    console.log(uri, params);
     return this.http.patch<any>(`${this.serverUrl}${uri}`, params).pipe(
       map(res => new TestBlock().deserialize(res.response))
     );

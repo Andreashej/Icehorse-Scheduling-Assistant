@@ -7,10 +7,16 @@
             <h4>Please login</h4>
           </div>
           <div class="form-group">
-            <input type="text" #username name="username" class="form-control rounded-pill" placeholder="Username">
+            <span class="ui-float-label">
+              <input id="username" type="text" class="form-control rounded-pill" pInputText #username name="username" />
+              <label for="username">Username</label>
+            </span>
           </div>
           <div class="form-group">
-            <input type="password" #password name="password" class="form-control rounded-pill" placeholder="Password">
+            <span class="ui-float-label">
+              <input type="password" #password name="password" class="form-control rounded-pill" pInputText />
+              <label for="password">Password</label>
+            </span>
           </div>
           <div class="w-100 d-flex justify-content-between">
             <button type="button" class="btn btn-primary rounded-pill"  routerLink="/register">Register</button>

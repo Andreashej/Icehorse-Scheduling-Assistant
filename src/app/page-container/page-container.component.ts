@@ -23,6 +23,11 @@ export class PageContainerComponent implements OnInit {
   currentUser: User;
   competition: Competition;
 
+  showCompetitionChanger: boolean = false;
+  showUserEdit: boolean = false;
+
+  activeCompetitionUri: string;
+
   @ViewChild("competitionModal", null) modal;
 
   constructor(
@@ -30,7 +35,6 @@ export class PageContainerComponent implements OnInit {
     private activatedRoute: ActivatedRoute,
     private router: Router,
     private auth: AuthService,
-    private modalService: NgbModal,
   ) {
     this.router.events.pipe(filter(event => event instanceof ActivationEnd)).subscribe(
       (route: ActivatedRoute) => {
@@ -72,23 +76,15 @@ export class PageContainerComponent implements OnInit {
     );
   }
 
-  openVerticallyCentered(content) {
-    this.modalService.open(content, { centered: true }).result.then(
-      (result) => {
-      },
-      () => console.log("closed modal")
-    );
-  }
-
   setCurrentCompetition() {
     this.competitionHandler.getCurrentCompetition().subscribe(
       competition => {
         if (competition) this.competition = competition;
-        else this.openVerticallyCentered(this.modal);
+        else this.showCompetitionChanger = true;
       },
       err => {
         console.log(err);
-        this.openVerticallyCentered(this.modal);
+        this.showCompetitionChanger = true;
       }
     );
   }

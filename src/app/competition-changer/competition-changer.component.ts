@@ -24,6 +24,7 @@ export class CompetitionChangerComponent implements OnInit {
 
   ngOnInit() {
     this.createNew = false;
+    console.log(this.activeCompetitionUri);
   }
 
   modalDismiss(e?) {
@@ -44,8 +45,8 @@ export class CompetitionChangerComponent implements OnInit {
     const competition = new Competition(name, newStart, newEnd);
     this.competitionHandler.createCompetition(competition).subscribe(
       response => {
+        this.createNew = false;
         this.create.emit(response);
-        this.modalDismiss();
       },
       error => this.alert = new Alert(error.error.response, 'danger')
     )
