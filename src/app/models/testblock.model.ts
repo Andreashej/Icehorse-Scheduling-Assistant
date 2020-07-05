@@ -10,6 +10,7 @@ export class TestBlock implements Deserializeable {
         T3: {bg: "#67A266", text: "#000000"},
         T4: {bg: "#44985D", text: "#ffffff"},
         T5: {bg: "#9DB688", text: "#000000"},
+        T7: {bg: "#AABCA6", text: "#000000"},
         T8: {bg: "#AABCA6", text: "#000000"},
         V1: {bg: "#7194C0", text: "#000000"},
         GDB: {bg: "#7194C0", text: "#000000"},

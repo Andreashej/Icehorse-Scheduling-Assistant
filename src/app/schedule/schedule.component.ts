@@ -84,7 +84,10 @@ export class ScheduleComponent implements OnInit {
     console.log(this.competition.startdate);
 
     this.competitionHandler.getSchedule(this.competition._links.schedule).subscribe(
-      tests => this.events = tests
+      tests => {
+        this.events = tests;
+        console.log(this.events);
+      }
     );
   }
 
