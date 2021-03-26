@@ -92,7 +92,6 @@ export class ScheduleComponent implements OnInit {
   }
 
   parseEvent(testblock: TestBlock) {
-    console.log(testblock.test.testcode, testblock.test.origcode);
     const colours = testblock.getColour();
     return {
       id: testblock._links.self,
