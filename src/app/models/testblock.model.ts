@@ -78,7 +78,11 @@ export class TestBlock implements Deserializeable {
     }
 
     getColour() {
-        return this.test.origcode ? (TestBlock.COLOURS[this.test.origcode] ?? TestBlock.COLOURS.CUSTOM) : TestBlock.COLOURS.CUSTOM;
+        if (this.test && this.test.origcode) {
+            return TestBlock.COLOURS[this.test.origcode] ?? TestBlock.COLOURS.CUSTOM;
+        }
+        
+        return TestBlock.COLOURS.CUSTOM;
     }
 
     timeToUTC(date: Date): Date {
