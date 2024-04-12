@@ -79,9 +79,12 @@ export class TestBlock implements Deserializeable {
 
     getColour() {
         if (this.test && this.test.origcode) {
-            return TestBlock.COLOURS[this.test.origcode] ?? TestBlock.COLOURS.CUSTOM;
+            const color = TestBlock.COLOURS[this.test.origcode]
+            if (color) {
+                return color;
+            }
         }
-        
+
         return TestBlock.COLOURS.CUSTOM;
     }
 
