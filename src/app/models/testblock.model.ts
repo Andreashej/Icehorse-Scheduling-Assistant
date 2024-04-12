@@ -12,14 +12,18 @@ export class TestBlock implements Deserializeable {
         T5: {bg: "#9DB688", text: "#000000"},
         T7: {bg: "#AABCA6", text: "#000000"},
         T8: {bg: "#AABCA6", text: "#000000"},
+        GTO: {bg: "#AABCA6", text: "#000000"},
         V1: {bg: "#7194C0", text: "#000000"},
         GDB: {bg: "#7194C0", text: "#000000"},
+        GDV: {bg: "#7194C0", text: "#000000"},
         V2: {bg: "#4B627F", text: "#ffffff"},
         GDT: {bg: "#4B627F", text: "#ffffff"},
         V3: {bg: "#96C4FF", text: "#000000"},
         GDC: {bg: "#96C4FF", text: "#000000"},
         V5: {bg: "#263140", text: "#ffffff"},
         GDY: {bg: "#263140", text: "#ffffff"},
+        'GDY-A': {bg: "#263140", text: "#ffffff"},
+        'GDY-B': {bg: "#263140", text: "#ffffff"},
         F1: {bg: "#34495e", text: "#ffffff"},
         GDA: {bg: "#34495e", text: "#ffffff"},
         F2: {bg: "#87B0E5", text: "#000000"},
@@ -74,7 +78,7 @@ export class TestBlock implements Deserializeable {
     }
 
     getColour() {
-        return this.test.origcode ? TestBlock.COLOURS[this.test.origcode] : TestBlock.COLOURS.CUSTOM;
+        return this.test.origcode ? TestBlock.COLOURS[this.test.origcode] ?? TestBlock.COLOURS.CUSTOM : TestBlock.COLOURS.CUSTOM;
     }
 
     timeToUTC(date: Date): Date {
